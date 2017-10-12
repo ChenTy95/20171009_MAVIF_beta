@@ -77,8 +77,16 @@
             this.labVNAT = new System.Windows.Forms.Label();
             this.textConsole = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.btnRunFileZilla = new System.Windows.Forms.Button();
+            this.btnRunVMware = new System.Windows.Forms.Button();
+            this.btnRunApache = new System.Windows.Forms.Button();
+            this.btnRunNetwork = new System.Windows.Forms.Button();
+            this.btnRunServices = new System.Windows.Forms.Button();
             this.cBoxI = new System.Windows.Forms.ComboBox();
             this.gIP = new System.Windows.Forms.GroupBox();
+            this.btnIReFresh = new System.Windows.Forms.Button();
+            this.labIInfo = new System.Windows.Forms.Label();
+            this.labIType = new System.Windows.Forms.Label();
             this.labIStatus = new System.Windows.Forms.Label();
             this.labIIP = new System.Windows.Forms.Label();
             this.btnIDHCP = new System.Windows.Forms.Button();
@@ -89,15 +97,6 @@
             this.tBLanIP1 = new System.Windows.Forms.TextBox();
             this.labI = new System.Windows.Forms.Label();
             this.labILanDot = new System.Windows.Forms.Label();
-            this.btnRunFileZilla = new System.Windows.Forms.Button();
-            this.btnRunVMware = new System.Windows.Forms.Button();
-            this.btnRunApache = new System.Windows.Forms.Button();
-            this.btnRunNetwork = new System.Windows.Forms.Button();
-            this.btnRunServices = new System.Windows.Forms.Button();
-            this.labIType = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.labIInfo = new System.Windows.Forms.Label();
-            this.btnIReFresh = new System.Windows.Forms.Button();
             this.gMySQL.SuspendLayout();
             this.gApache.SuspendLayout();
             this.gFileZilla.SuspendLayout();
@@ -636,6 +635,64 @@
             this.textConsole.TabIndex = 7;
             this.textConsole.TextChanged += new System.EventHandler(this.textConsole_TextChanged);
             // 
+            // btnRunFileZilla
+            // 
+            this.btnRunFileZilla.Enabled = false;
+            this.btnRunFileZilla.Image = global::_20171009_MAVIF_beta.Properties.Resources.FileZilla_Server_exe_10_;
+            this.btnRunFileZilla.Location = new System.Drawing.Point(473, 12);
+            this.btnRunFileZilla.Name = "btnRunFileZilla";
+            this.btnRunFileZilla.Size = new System.Drawing.Size(40, 40);
+            this.btnRunFileZilla.TabIndex = 12;
+            this.toolTip1.SetToolTip(this.btnRunFileZilla, "打开FileZilla Server Interface");
+            this.btnRunFileZilla.UseVisualStyleBackColor = true;
+            this.btnRunFileZilla.Click += new System.EventHandler(this.btnRunFileZilla_Click);
+            // 
+            // btnRunVMware
+            // 
+            this.btnRunVMware.Enabled = false;
+            this.btnRunVMware.Image = global::_20171009_MAVIF_beta.Properties.Resources.vmware_exe_1_;
+            this.btnRunVMware.Location = new System.Drawing.Point(519, 12);
+            this.btnRunVMware.Name = "btnRunVMware";
+            this.btnRunVMware.Size = new System.Drawing.Size(40, 40);
+            this.btnRunVMware.TabIndex = 11;
+            this.toolTip1.SetToolTip(this.btnRunVMware, "打开VMware Workstation");
+            this.btnRunVMware.UseVisualStyleBackColor = true;
+            this.btnRunVMware.Click += new System.EventHandler(this.btnRunVMware_Click);
+            // 
+            // btnRunApache
+            // 
+            this.btnRunApache.Enabled = false;
+            this.btnRunApache.Image = global::_20171009_MAVIF_beta.Properties.Resources.ApacheMonitor_exe_106_;
+            this.btnRunApache.Location = new System.Drawing.Point(427, 12);
+            this.btnRunApache.Name = "btnRunApache";
+            this.btnRunApache.Size = new System.Drawing.Size(40, 40);
+            this.btnRunApache.TabIndex = 10;
+            this.toolTip1.SetToolTip(this.btnRunApache, "打开Apache Monitor");
+            this.btnRunApache.UseVisualStyleBackColor = true;
+            this.btnRunApache.Click += new System.EventHandler(this.btnRunApache_Click);
+            // 
+            // btnRunNetwork
+            // 
+            this.btnRunNetwork.Image = global::_20171009_MAVIF_beta.Properties.Resources.shell32_dll_273_;
+            this.btnRunNetwork.Location = new System.Drawing.Point(565, 12);
+            this.btnRunNetwork.Name = "btnRunNetwork";
+            this.btnRunNetwork.Size = new System.Drawing.Size(40, 40);
+            this.btnRunNetwork.TabIndex = 9;
+            this.toolTip1.SetToolTip(this.btnRunNetwork, "打开网络和共享中心");
+            this.btnRunNetwork.UseVisualStyleBackColor = true;
+            this.btnRunNetwork.Click += new System.EventHandler(this.btnRunNetwork_Click);
+            // 
+            // btnRunServices
+            // 
+            this.btnRunServices.Image = global::_20171009_MAVIF_beta.Properties.Resources.filemgmt_dll_236_;
+            this.btnRunServices.Location = new System.Drawing.Point(611, 12);
+            this.btnRunServices.Name = "btnRunServices";
+            this.btnRunServices.Size = new System.Drawing.Size(40, 40);
+            this.btnRunServices.TabIndex = 8;
+            this.toolTip1.SetToolTip(this.btnRunServices, "打开系统服务");
+            this.btnRunServices.UseVisualStyleBackColor = true;
+            this.btnRunServices.Click += new System.EventHandler(this.btnRunServices_Click);
+            // 
             // cBoxI
             // 
             this.cBoxI.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -651,7 +708,6 @@
             // 
             this.gIP.Controls.Add(this.btnIReFresh);
             this.gIP.Controls.Add(this.labIInfo);
-            this.gIP.Controls.Add(this.button1);
             this.gIP.Controls.Add(this.labIType);
             this.gIP.Controls.Add(this.labIStatus);
             this.gIP.Controls.Add(this.labIIP);
@@ -670,6 +726,38 @@
             this.gIP.TabIndex = 3;
             this.gIP.TabStop = false;
             this.gIP.Text = " IP Settings ";
+            // 
+            // btnIReFresh
+            // 
+            this.btnIReFresh.Location = new System.Drawing.Point(17, 87);
+            this.btnIReFresh.Name = "btnIReFresh";
+            this.btnIReFresh.Size = new System.Drawing.Size(41, 72);
+            this.btnIReFresh.TabIndex = 33;
+            this.btnIReFresh.Text = "刷新\r\n网络\r\n信息";
+            this.btnIReFresh.UseVisualStyleBackColor = true;
+            this.btnIReFresh.Click += new System.EventHandler(this.btnIReFresh_Click);
+            // 
+            // labIInfo
+            // 
+            this.labIInfo.AutoSize = true;
+            this.labIInfo.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labIInfo.Location = new System.Drawing.Point(64, 118);
+            this.labIInfo.Name = "labIInfo";
+            this.labIInfo.Size = new System.Drawing.Size(175, 56);
+            this.labIInfo.TabIndex = 32;
+            this.labIInfo.Text = "   Mask: 255.255.255.255\r\nGateway: 255.255.255.255\r\n    DNS: 255.255.255.255\r\n   " +
+    "      255.255.255.255";
+            // 
+            // labIType
+            // 
+            this.labIType.AutoSize = true;
+            this.labIType.BackColor = System.Drawing.SystemColors.Control;
+            this.labIType.ForeColor = System.Drawing.Color.Blue;
+            this.labIType.Location = new System.Drawing.Point(14, 60);
+            this.labIType.Name = "labIType";
+            this.labIType.Size = new System.Drawing.Size(44, 17);
+            this.labIType.TabIndex = 30;
+            this.labIType.Text = "有线网";
             // 
             // labIStatus
             // 
@@ -765,105 +853,6 @@
             this.labILanDot.Size = new System.Drawing.Size(149, 20);
             this.labILanDot.TabIndex = 29;
             this.labILanDot.Text = "            .          .          .";
-            // 
-            // btnRunFileZilla
-            // 
-            this.btnRunFileZilla.Enabled = false;
-            this.btnRunFileZilla.Image = global::_20171009_MAVIF_beta.Properties.Resources.FileZilla_Server_exe_10_;
-            this.btnRunFileZilla.Location = new System.Drawing.Point(473, 12);
-            this.btnRunFileZilla.Name = "btnRunFileZilla";
-            this.btnRunFileZilla.Size = new System.Drawing.Size(40, 40);
-            this.btnRunFileZilla.TabIndex = 12;
-            this.toolTip1.SetToolTip(this.btnRunFileZilla, "打开FileZilla Server Interface");
-            this.btnRunFileZilla.UseVisualStyleBackColor = true;
-            this.btnRunFileZilla.Click += new System.EventHandler(this.btnRunFileZilla_Click);
-            // 
-            // btnRunVMware
-            // 
-            this.btnRunVMware.Enabled = false;
-            this.btnRunVMware.Image = global::_20171009_MAVIF_beta.Properties.Resources.vmware_exe_1_;
-            this.btnRunVMware.Location = new System.Drawing.Point(519, 12);
-            this.btnRunVMware.Name = "btnRunVMware";
-            this.btnRunVMware.Size = new System.Drawing.Size(40, 40);
-            this.btnRunVMware.TabIndex = 11;
-            this.toolTip1.SetToolTip(this.btnRunVMware, "打开VMware Workstation");
-            this.btnRunVMware.UseVisualStyleBackColor = true;
-            this.btnRunVMware.Click += new System.EventHandler(this.btnRunVMware_Click);
-            // 
-            // btnRunApache
-            // 
-            this.btnRunApache.Enabled = false;
-            this.btnRunApache.Image = global::_20171009_MAVIF_beta.Properties.Resources.ApacheMonitor_exe_106_;
-            this.btnRunApache.Location = new System.Drawing.Point(427, 12);
-            this.btnRunApache.Name = "btnRunApache";
-            this.btnRunApache.Size = new System.Drawing.Size(40, 40);
-            this.btnRunApache.TabIndex = 10;
-            this.toolTip1.SetToolTip(this.btnRunApache, "打开Apache Monitor");
-            this.btnRunApache.UseVisualStyleBackColor = true;
-            this.btnRunApache.Click += new System.EventHandler(this.btnRunApache_Click);
-            // 
-            // btnRunNetwork
-            // 
-            this.btnRunNetwork.Image = global::_20171009_MAVIF_beta.Properties.Resources.shell32_dll_273_;
-            this.btnRunNetwork.Location = new System.Drawing.Point(565, 12);
-            this.btnRunNetwork.Name = "btnRunNetwork";
-            this.btnRunNetwork.Size = new System.Drawing.Size(40, 40);
-            this.btnRunNetwork.TabIndex = 9;
-            this.toolTip1.SetToolTip(this.btnRunNetwork, "打开网络和共享中心");
-            this.btnRunNetwork.UseVisualStyleBackColor = true;
-            this.btnRunNetwork.Click += new System.EventHandler(this.btnRunNetwork_Click);
-            // 
-            // btnRunServices
-            // 
-            this.btnRunServices.Image = global::_20171009_MAVIF_beta.Properties.Resources.filemgmt_dll_236_;
-            this.btnRunServices.Location = new System.Drawing.Point(611, 12);
-            this.btnRunServices.Name = "btnRunServices";
-            this.btnRunServices.Size = new System.Drawing.Size(40, 40);
-            this.btnRunServices.TabIndex = 8;
-            this.toolTip1.SetToolTip(this.btnRunServices, "打开系统服务");
-            this.btnRunServices.UseVisualStyleBackColor = true;
-            this.btnRunServices.Click += new System.EventHandler(this.btnRunServices_Click);
-            // 
-            // labIType
-            // 
-            this.labIType.AutoSize = true;
-            this.labIType.BackColor = System.Drawing.SystemColors.Control;
-            this.labIType.ForeColor = System.Drawing.Color.Blue;
-            this.labIType.Location = new System.Drawing.Point(14, 60);
-            this.labIType.Name = "labIType";
-            this.labIType.Size = new System.Drawing.Size(44, 17);
-            this.labIType.TabIndex = 30;
-            this.labIType.Text = "有线网";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(20, 176);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(67, 26);
-            this.button1.TabIndex = 31;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // labIInfo
-            // 
-            this.labIInfo.AutoSize = true;
-            this.labIInfo.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labIInfo.Location = new System.Drawing.Point(64, 118);
-            this.labIInfo.Name = "labIInfo";
-            this.labIInfo.Size = new System.Drawing.Size(175, 56);
-            this.labIInfo.TabIndex = 32;
-            this.labIInfo.Text = "   Mask: 255.255.255.255\r\nGateway: 255.255.255.255\r\n    DNS: 255.255.255.255\r\n   " +
-    "      255.255.255.255";
-            // 
-            // btnIReFresh
-            // 
-            this.btnIReFresh.Location = new System.Drawing.Point(17, 87);
-            this.btnIReFresh.Name = "btnIReFresh";
-            this.btnIReFresh.Size = new System.Drawing.Size(41, 72);
-            this.btnIReFresh.TabIndex = 33;
-            this.btnIReFresh.Text = "刷新\r\n网络\r\n信息";
-            this.btnIReFresh.UseVisualStyleBackColor = true;
-            this.btnIReFresh.Click += new System.EventHandler(this.btnIReFresh_Click);
             // 
             // Form1
             // 
@@ -974,7 +963,6 @@
         private System.Windows.Forms.Button btnRunFileZilla;
         private System.Windows.Forms.Label labIType;
         private System.Windows.Forms.Label labIInfo;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnIReFresh;
     }
 }

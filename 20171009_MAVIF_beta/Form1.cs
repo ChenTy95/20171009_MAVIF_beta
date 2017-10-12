@@ -623,10 +623,12 @@ namespace _20171009_MAVIF_beta
                         addItemStr = "× " + ipInfoStatic[i, 1];
                     cBoxI.Items.Add(addItemStr);
                 }
+                //优化适配器顺序，效果待测
+                if ((ipInfoStatic[i, 1] == "WLAN" || ipInfoStatic[i, 1] == "Wi-Fi" || ipInfoStatic[i, 1] == "无线网络连接") && ipInfoStatic[i, 2] == "Connected")
+                    cBoxI.Text = "√ " + ipInfoStatic[i, 1];
                 if ((ipInfoStatic[i, 1] == "以太网" || ipInfoStatic[i, 1] == "本地连接") && ipInfoStatic[i, 2] == "Connected")
                     cBoxI.Text = "√ " + ipInfoStatic[i, 1];
-                else if ((ipInfoStatic[i, 1] == "WLAN" || ipInfoStatic[i, 1] == "Wi-Fi" || ipInfoStatic[i, 1] == "无线网络连接") && ipInfoStatic[i, 2] == "Connected")
-                    cBoxI.Text = "√ " + ipInfoStatic[i, 1];
+
             }
 
             // To Be Continued.
