@@ -589,6 +589,7 @@ namespace _20171009_MAVIF_beta
             textConsole.Text = "[ " + DateTime.Now.ToString() + " ]\r\n" +  labTitle1.Text + " Init OK.";
             GetServiceInfo();
             GetIPAddrInfo();
+            MessageBox.Show("Init OK!");
         }
         
     }
