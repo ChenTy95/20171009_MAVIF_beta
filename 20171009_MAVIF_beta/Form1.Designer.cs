@@ -94,6 +94,10 @@
             this.btnRunApache = new System.Windows.Forms.Button();
             this.btnRunNetwork = new System.Windows.Forms.Button();
             this.btnRunServices = new System.Windows.Forms.Button();
+            this.labIType = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.labIInfo = new System.Windows.Forms.Label();
+            this.btnIReFresh = new System.Windows.Forms.Button();
             this.gMySQL.SuspendLayout();
             this.gApache.SuspendLayout();
             this.gFileZilla.SuspendLayout();
@@ -634,15 +638,21 @@
             // 
             // cBoxI
             // 
+            this.cBoxI.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cBoxI.FormattingEnabled = true;
             this.cBoxI.ItemHeight = 17;
             this.cBoxI.Location = new System.Drawing.Point(67, 25);
             this.cBoxI.Name = "cBoxI";
             this.cBoxI.Size = new System.Drawing.Size(240, 25);
             this.cBoxI.TabIndex = 1;
+            this.cBoxI.SelectedIndexChanged += new System.EventHandler(this.cBoxI_SelectedIndexChanged);
             // 
             // gIP
             // 
+            this.gIP.Controls.Add(this.btnIReFresh);
+            this.gIP.Controls.Add(this.labIInfo);
+            this.gIP.Controls.Add(this.button1);
+            this.gIP.Controls.Add(this.labIType);
             this.gIP.Controls.Add(this.labIStatus);
             this.gIP.Controls.Add(this.labIIP);
             this.gIP.Controls.Add(this.btnIDHCP);
@@ -691,12 +701,14 @@
             // 
             // btnILanSetIP
             // 
+            this.btnILanSetIP.BackColor = System.Drawing.Color.OrangeRed;
+            this.btnILanSetIP.ForeColor = System.Drawing.Color.White;
             this.btnILanSetIP.Location = new System.Drawing.Point(244, 87);
             this.btnILanSetIP.Name = "btnILanSetIP";
             this.btnILanSetIP.Size = new System.Drawing.Size(63, 25);
             this.btnILanSetIP.TabIndex = 3;
             this.btnILanSetIP.Text = "设定IP";
-            this.btnILanSetIP.UseVisualStyleBackColor = true;
+            this.btnILanSetIP.UseVisualStyleBackColor = false;
             // 
             // tBLanIP4
             // 
@@ -764,6 +776,7 @@
             this.btnRunFileZilla.TabIndex = 12;
             this.toolTip1.SetToolTip(this.btnRunFileZilla, "打开FileZilla Server Interface");
             this.btnRunFileZilla.UseVisualStyleBackColor = true;
+            this.btnRunFileZilla.Click += new System.EventHandler(this.btnRunFileZilla_Click);
             // 
             // btnRunVMware
             // 
@@ -810,6 +823,47 @@
             this.toolTip1.SetToolTip(this.btnRunServices, "打开系统服务");
             this.btnRunServices.UseVisualStyleBackColor = true;
             this.btnRunServices.Click += new System.EventHandler(this.btnRunServices_Click);
+            // 
+            // labIType
+            // 
+            this.labIType.AutoSize = true;
+            this.labIType.BackColor = System.Drawing.SystemColors.Control;
+            this.labIType.ForeColor = System.Drawing.Color.Blue;
+            this.labIType.Location = new System.Drawing.Point(14, 60);
+            this.labIType.Name = "labIType";
+            this.labIType.Size = new System.Drawing.Size(44, 17);
+            this.labIType.TabIndex = 30;
+            this.labIType.Text = "有线网";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(20, 176);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(67, 26);
+            this.button1.TabIndex = 31;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // labIInfo
+            // 
+            this.labIInfo.AutoSize = true;
+            this.labIInfo.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labIInfo.Location = new System.Drawing.Point(64, 118);
+            this.labIInfo.Name = "labIInfo";
+            this.labIInfo.Size = new System.Drawing.Size(175, 56);
+            this.labIInfo.TabIndex = 32;
+            this.labIInfo.Text = "   Mask: 255.255.255.255\r\nGateway: 255.255.255.255\r\n    DNS: 255.255.255.255\r\n   " +
+    "      255.255.255.255";
+            // 
+            // btnIReFresh
+            // 
+            this.btnIReFresh.Location = new System.Drawing.Point(17, 87);
+            this.btnIReFresh.Name = "btnIReFresh";
+            this.btnIReFresh.Size = new System.Drawing.Size(41, 72);
+            this.btnIReFresh.TabIndex = 33;
+            this.btnIReFresh.Text = "刷新\r\n网络\r\n信息";
+            this.btnIReFresh.UseVisualStyleBackColor = true;
+            this.btnIReFresh.Click += new System.EventHandler(this.btnIReFresh_Click);
             // 
             // Form1
             // 
@@ -918,6 +972,10 @@
         private System.Windows.Forms.Button btnRunApache;
         private System.Windows.Forms.Button btnRunVMware;
         private System.Windows.Forms.Button btnRunFileZilla;
+        private System.Windows.Forms.Label labIType;
+        private System.Windows.Forms.Label labIInfo;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnIReFresh;
     }
 }
 

@@ -328,13 +328,22 @@ namespace _20171009_MAVIF_beta
 
         private void btnRunApache_Click(object sender, EventArgs e)
         {
-            Console.WriteLine(aDir);
             Process.Start(@aDir);
+        }
+
+        private void btnRunFileZilla_Click(object sender, EventArgs e)
+        {
+            Process.Start(@fDir);
+        }
+
+        private void cBoxI_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadIPInfo(cBoxI.Text);
         }
 
         private void btnRunVMware_Click(object sender, EventArgs e)
         {
-            Process.Start(@"D:\Program Files\VMware\VMware Workstation\vmware.exe");
+            Process.Start(@vDir);
         }
 
         private void GetServiceInfo()
@@ -539,6 +548,15 @@ namespace _20171009_MAVIF_beta
 
         }
 
+        static string[,] ipInfoStatic = new string[10, 4];
+
+        private void btnIReFresh_Click(object sender, EventArgs e)
+        {
+            GetIPAddrInfo();
+        }
+
+        static int jsStatic;
+
         private void GetIPAddrInfo()
         {
             RunCMD("ipconfig","N");
@@ -584,29 +602,68 @@ namespace _20171009_MAVIF_beta
                     }
                 }
             }
+            ipArr = null;
+            ipArrInfo = null;
+            jsStatic = js;
+            for (int i = 0; i <= jsStatic; i++)
+                for (int j = 0; j < 4; j++)
+                    ipInfoStatic[i, j] = ipInfo[i, j];
+            ipInfo = null;
 
             string addItemStr = "";
+            cBoxI.Items.Clear();
             for (int i=0; i<=js; i++)
             {
-                if (ipInfo[i,0]=="LAN")//&& (ipInfo[i,1].Contains("以太网") || ipInfo[i,1].Contains("本地连接")))
+                if (ipInfoStatic[i,0]=="LAN" || ipInfoStatic[i,0]=="WLAN")//&& (ipInfo[i,1].Contains("以太网") || ipInfo[i,1].Contains("本地连接")))
                 {
                     //comboBox1.Text = ipInfo[i, 1] + " " + ipInfo[i, 2] + " " + ipInfo[i, 3];
-                    if (ipInfo[i, 2] == "Connected")
-                        addItemStr = "√ " + ipInfo[i, 1];
+                    if (ipInfoStatic[i, 2] == "Connected")
+                        addItemStr = "√ " + ipInfoStatic[i, 1];
                     else
-                        addItemStr = "× " + ipInfo[i, 1];
+                        addItemStr = "× " + ipInfoStatic[i, 1];
                     cBoxI.Items.Add(addItemStr);
                 }
+                if ((ipInfoStatic[i, 1] == "以太网" || ipInfoStatic[i, 1] == "本地连接") && ipInfoStatic[i, 2] == "Connected")
+                    cBoxI.Text = "√ " + ipInfoStatic[i, 1];
+                else if ((ipInfoStatic[i, 1] == "WLAN" || ipInfoStatic[i, 1] == "Wi-Fi" || ipInfoStatic[i, 1] == "无线网络连接") && ipInfoStatic[i, 2] == "Connected")
+                    cBoxI.Text = "√ " + ipInfoStatic[i, 1];
             }
+
             // To Be Continued.
 
         }
 
+        private void LoadIPInfo(string str)
+        {
+            str = str.Substring(str.IndexOf(" ") + 1, str.Length - str.IndexOf(" ") - 1);
+            for (int i = 0; i < jsStatic; i++)
+                if (ipInfoStatic[i, 1] == str)
+                {
+                    if (ipInfoStatic[i, 2] == "Connected")
+                    {
+                        labIStatus.Text = "已连接";
+                        labIStatus.ForeColor = Color.Blue;
+                        labIIP.Text = "IP: " + ipInfoStatic[i, 3];
+                    }
+                    else
+                    {
+                        labIStatus.Text = "未连接";
+                        labIStatus.ForeColor = Color.Red;
+                        labIIP.Text = "IP: NULL";
+                    }
+                    if (ipInfoStatic[i, 0] == "LAN")
+                        labIType.Text = "有线网";
+                    if (ipInfoStatic[i, 0] == "WLAN")
+                        labIType.Text = "无线网";
+                }
+        }
+
         private void GetAppDir()
         {
-            RunCMD("sc qc " + labASNTxt.Text,"N");
-            string[] qcInfo = cmdOutput.Split(Environment.NewLine.ToCharArray());
-            for (int i=0; i<qcInfo.Length; i++)
+            string[] qcInfo;
+            RunCMD("sc qc \"" + labASNTxt.Text + "\"", "N");
+            qcInfo = cmdOutput.Split(Environment.NewLine.ToCharArray());
+            for (int i = 0; i < qcInfo.Length; i++)
                 if (qcInfo[i].Contains("BINARY_PATH_NAME"))
                 {
                     string str = qcInfo[i];
@@ -615,8 +672,24 @@ namespace _20171009_MAVIF_beta
                     aDir = str + aDir;
                     btnRunApache.Enabled = true;
                 }
+            qcInfo = null;
 
-            RunCMD("sc qc " + labFSNTxt.Text, "N");
+            RunCMD("sc qc \"" + labFSNTxt.Text + "\"", "N");
+            qcInfo = cmdOutput.Split(Environment.NewLine.ToCharArray());
+            for (int i = 0; i < qcInfo.Length; i++)
+                if (qcInfo[i].Contains("BINARY_PATH_NAME")) 
+                {
+                    string str = qcInfo[i];
+                    str = str.Substring(str.IndexOf(":") + 3, str.IndexOf(".exe") - str.IndexOf(":") - 3);
+                    str = str.Substring(0, str.LastIndexOf(@"\") + 1);
+                    Console.WriteLine(str);
+                    fDir = str + fDir;
+                    Console.WriteLine(fDir);
+                    btnRunFileZilla.Enabled = true;
+                }
+            qcInfo = null;
+
+            RunCMD("sc qc \"" + labVRemoteTxt.Text + "\"", "N");
             qcInfo = cmdOutput.Split(Environment.NewLine.ToCharArray());
             for (int i = 0; i < qcInfo.Length; i++)
                 if (qcInfo[i].Contains("BINARY_PATH_NAME"))
@@ -624,10 +697,12 @@ namespace _20171009_MAVIF_beta
                     string str = qcInfo[i];
                     str = str.Substring(str.IndexOf(":") + 3, str.IndexOf(".exe") - str.IndexOf(":") - 3);
                     str = str.Substring(0, str.LastIndexOf(@"\") + 1);
-                    fDir = str + fDir;
-                    btnRunFileZilla.Enabled = true;
+                    Console.WriteLine(str);
+                    vDir = str + vDir;
+                    Console.WriteLine(fDir);
+                    btnRunVMware.Enabled = true;
                 }
-
+            qcInfo = null;
         }
 
         private void Form1_Load(object sender, EventArgs e)
