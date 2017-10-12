@@ -96,6 +96,10 @@
     <Content Include="imageres.dll%285372%29.ico" />
     <None Include="Resources\imageres.dll%281401%29.ico" />
     <None Include="Resources\filemgmt.dll%28236%29.ico" />
+    <None Include="Resources\shell32.dll%28273%29.ico" />
+    <None Include="Resources\vmware.exe%281%29.ico" />
+    <None Include="Resources\ApacheMonitor.exe%28106%29.ico" />
+    <None Include="Resources\FileZilla Server.exe%2810%29.ico" />
     <Content Include="shell32.dll%2816826%29.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

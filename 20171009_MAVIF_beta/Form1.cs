@@ -21,6 +21,7 @@ namespace _20171009_MAVIF_beta
 
         static string _M = "null", _A = "null", _V = "null", _F = "null";
         static string cmdOutput;
+        static string aDir = "ApacheMonitor.exe", fDir = "FileZilla Server Interface.exe", vDir = "vmware.exe";
 
         private void btnMRun_Click(object sender, EventArgs e)
         {
@@ -42,7 +43,7 @@ namespace _20171009_MAVIF_beta
 
         private void btnMSetManual_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void RunCMD(string cmdStr, string writeConsole)
@@ -319,6 +320,23 @@ namespace _20171009_MAVIF_beta
             }
         }
 
+        private void btnRunNetwork_Click(object sender, EventArgs e)
+        {
+            RunCMD(@"%windir%\system32\control.exe /name Microsoft.NetworkAndSharingCenter", "N");
+            //Process.Start("RunDLL32.exe", "shell32.dll,Control_RunDLL ncpa.cpl");
+        }
+
+        private void btnRunApache_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine(aDir);
+            Process.Start(@aDir);
+        }
+
+        private void btnRunVMware_Click(object sender, EventArgs e)
+        {
+            Process.Start(@"D:\Program Files\VMware\VMware Workstation\vmware.exe");
+        }
+
         private void GetServiceInfo()
         {
             var serviceControllers = ServiceController.GetServices();
@@ -584,10 +602,39 @@ namespace _20171009_MAVIF_beta
 
         }
 
+        private void GetAppDir()
+        {
+            RunCMD("sc qc " + labASNTxt.Text,"N");
+            string[] qcInfo = cmdOutput.Split(Environment.NewLine.ToCharArray());
+            for (int i=0; i<qcInfo.Length; i++)
+                if (qcInfo[i].Contains("BINARY_PATH_NAME"))
+                {
+                    string str = qcInfo[i];
+                    str = str.Substring(str.IndexOf(":") + 3, str.IndexOf(".exe") - str.IndexOf(":") - 3);
+                    str = str.Substring(0, str.LastIndexOf(@"\") + 1);
+                    aDir = str + aDir;
+                    btnRunApache.Enabled = true;
+                }
+
+            RunCMD("sc qc " + labFSNTxt.Text, "N");
+            qcInfo = cmdOutput.Split(Environment.NewLine.ToCharArray());
+            for (int i = 0; i < qcInfo.Length; i++)
+                if (qcInfo[i].Contains("BINARY_PATH_NAME"))
+                {
+                    string str = qcInfo[i];
+                    str = str.Substring(str.IndexOf(":") + 3, str.IndexOf(".exe") - str.IndexOf(":") - 3);
+                    str = str.Substring(0, str.LastIndexOf(@"\") + 1);
+                    fDir = str + fDir;
+                    btnRunFileZilla.Enabled = true;
+                }
+
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             textConsole.Text = "[ " + DateTime.Now.ToString() + " ]\r\n" +  labTitle1.Text + " Init OK.";
             GetServiceInfo();
+            GetAppDir();
             GetIPAddrInfo();
         }
         

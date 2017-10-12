@@ -63,6 +63,16 @@ namespace _20171009_MAVIF_beta.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap ApacheMonitor_exe_106_ {
+            get {
+                object obj = ResourceManager.GetObject("ApacheMonitor.exe(106)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap filemgmt_dll_236_ {
             get {
                 object obj = ResourceManager.GetObject("filemgmt.dll(236)", resourceCulture);
@@ -73,9 +83,39 @@ namespace _20171009_MAVIF_beta.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap FileZilla_Server_exe_10_ {
+            get {
+                object obj = ResourceManager.GetObject("FileZilla Server.exe(10)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap imageres_dll_1401_ {
             get {
                 object obj = ResourceManager.GetObject("imageres.dll(1401)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap shell32_dll_273_ {
+            get {
+                object obj = ResourceManager.GetObject("shell32.dll(273)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap vmware_exe_1_ {
+            get {
+                object obj = ResourceManager.GetObject("vmware.exe(1)", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

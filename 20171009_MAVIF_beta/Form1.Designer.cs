@@ -77,7 +77,6 @@
             this.labVNAT = new System.Windows.Forms.Label();
             this.textConsole = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.btnRunServices = new System.Windows.Forms.Button();
             this.cBoxI = new System.Windows.Forms.ComboBox();
             this.gIP = new System.Windows.Forms.GroupBox();
             this.labIStatus = new System.Windows.Forms.Label();
@@ -90,6 +89,11 @@
             this.tBLanIP1 = new System.Windows.Forms.TextBox();
             this.labI = new System.Windows.Forms.Label();
             this.labILanDot = new System.Windows.Forms.Label();
+            this.btnRunFileZilla = new System.Windows.Forms.Button();
+            this.btnRunVMware = new System.Windows.Forms.Button();
+            this.btnRunApache = new System.Windows.Forms.Button();
+            this.btnRunNetwork = new System.Windows.Forms.Button();
+            this.btnRunServices = new System.Windows.Forms.Button();
             this.gMySQL.SuspendLayout();
             this.gApache.SuspendLayout();
             this.gFileZilla.SuspendLayout();
@@ -108,7 +112,7 @@
             this.gMySQL.Location = new System.Drawing.Point(18, 65);
             this.gMySQL.Name = "gMySQL";
             this.gMySQL.Size = new System.Drawing.Size(293, 82);
-            this.gMySQL.TabIndex = 0;
+            this.gMySQL.TabIndex = 4;
             this.gMySQL.TabStop = false;
             this.gMySQL.Text = " MySQL ";
             // 
@@ -198,9 +202,9 @@
             // 
             // btnMSetManual
             // 
-            this.btnMSetManual.Location = new System.Drawing.Point(365, 12);
+            this.btnMSetManual.Location = new System.Drawing.Point(330, 9);
             this.btnMSetManual.Name = "btnMSetManual";
-            this.btnMSetManual.Size = new System.Drawing.Size(106, 26);
+            this.btnMSetManual.Size = new System.Drawing.Size(71, 50);
             this.btnMSetManual.TabIndex = 5;
             this.btnMSetManual.Text = "Set Manual";
             this.btnMSetManual.UseVisualStyleBackColor = true;
@@ -628,16 +632,6 @@
             this.textConsole.TabIndex = 7;
             this.textConsole.TextChanged += new System.EventHandler(this.textConsole_TextChanged);
             // 
-            // btnRunServices
-            // 
-            this.btnRunServices.Image = global::_20171009_MAVIF_beta.Properties.Resources.filemgmt_dll_236_;
-            this.btnRunServices.Location = new System.Drawing.Point(611, 12);
-            this.btnRunServices.Name = "btnRunServices";
-            this.btnRunServices.Size = new System.Drawing.Size(40, 40);
-            this.btnRunServices.TabIndex = 8;
-            this.btnRunServices.UseVisualStyleBackColor = true;
-            this.btnRunServices.Click += new System.EventHandler(this.btnRunServices_Click);
-            // 
             // cBoxI
             // 
             this.cBoxI.FormattingEnabled = true;
@@ -645,7 +639,7 @@
             this.cBoxI.Location = new System.Drawing.Point(67, 25);
             this.cBoxI.Name = "cBoxI";
             this.cBoxI.Size = new System.Drawing.Size(240, 25);
-            this.cBoxI.TabIndex = 9;
+            this.cBoxI.TabIndex = 1;
             // 
             // gIP
             // 
@@ -663,7 +657,7 @@
             this.gIP.Location = new System.Drawing.Point(331, 65);
             this.gIP.Name = "gIP";
             this.gIP.Size = new System.Drawing.Size(320, 228);
-            this.gIP.TabIndex = 10;
+            this.gIP.TabIndex = 3;
             this.gIP.TabStop = false;
             this.gIP.Text = " IP Settings ";
             // 
@@ -691,7 +685,7 @@
             this.btnIDHCP.Location = new System.Drawing.Point(244, 56);
             this.btnIDHCP.Name = "btnIDHCP";
             this.btnIDHCP.Size = new System.Drawing.Size(63, 25);
-            this.btnIDHCP.TabIndex = 17;
+            this.btnIDHCP.TabIndex = 2;
             this.btnIDHCP.Text = "DHCP";
             this.btnIDHCP.UseVisualStyleBackColor = true;
             // 
@@ -700,7 +694,7 @@
             this.btnILanSetIP.Location = new System.Drawing.Point(244, 87);
             this.btnILanSetIP.Name = "btnILanSetIP";
             this.btnILanSetIP.Size = new System.Drawing.Size(63, 25);
-            this.btnILanSetIP.TabIndex = 16;
+            this.btnILanSetIP.TabIndex = 3;
             this.btnILanSetIP.Text = "设定IP";
             this.btnILanSetIP.UseVisualStyleBackColor = true;
             // 
@@ -760,11 +754,72 @@
             this.labILanDot.TabIndex = 29;
             this.labILanDot.Text = "            .          .          .";
             // 
+            // btnRunFileZilla
+            // 
+            this.btnRunFileZilla.Enabled = false;
+            this.btnRunFileZilla.Image = global::_20171009_MAVIF_beta.Properties.Resources.FileZilla_Server_exe_10_;
+            this.btnRunFileZilla.Location = new System.Drawing.Point(473, 12);
+            this.btnRunFileZilla.Name = "btnRunFileZilla";
+            this.btnRunFileZilla.Size = new System.Drawing.Size(40, 40);
+            this.btnRunFileZilla.TabIndex = 12;
+            this.toolTip1.SetToolTip(this.btnRunFileZilla, "打开FileZilla Server Interface");
+            this.btnRunFileZilla.UseVisualStyleBackColor = true;
+            // 
+            // btnRunVMware
+            // 
+            this.btnRunVMware.Enabled = false;
+            this.btnRunVMware.Image = global::_20171009_MAVIF_beta.Properties.Resources.vmware_exe_1_;
+            this.btnRunVMware.Location = new System.Drawing.Point(519, 12);
+            this.btnRunVMware.Name = "btnRunVMware";
+            this.btnRunVMware.Size = new System.Drawing.Size(40, 40);
+            this.btnRunVMware.TabIndex = 11;
+            this.toolTip1.SetToolTip(this.btnRunVMware, "打开VMware Workstation");
+            this.btnRunVMware.UseVisualStyleBackColor = true;
+            this.btnRunVMware.Click += new System.EventHandler(this.btnRunVMware_Click);
+            // 
+            // btnRunApache
+            // 
+            this.btnRunApache.Enabled = false;
+            this.btnRunApache.Image = global::_20171009_MAVIF_beta.Properties.Resources.ApacheMonitor_exe_106_;
+            this.btnRunApache.Location = new System.Drawing.Point(427, 12);
+            this.btnRunApache.Name = "btnRunApache";
+            this.btnRunApache.Size = new System.Drawing.Size(40, 40);
+            this.btnRunApache.TabIndex = 10;
+            this.toolTip1.SetToolTip(this.btnRunApache, "打开Apache Monitor");
+            this.btnRunApache.UseVisualStyleBackColor = true;
+            this.btnRunApache.Click += new System.EventHandler(this.btnRunApache_Click);
+            // 
+            // btnRunNetwork
+            // 
+            this.btnRunNetwork.Image = global::_20171009_MAVIF_beta.Properties.Resources.shell32_dll_273_;
+            this.btnRunNetwork.Location = new System.Drawing.Point(565, 12);
+            this.btnRunNetwork.Name = "btnRunNetwork";
+            this.btnRunNetwork.Size = new System.Drawing.Size(40, 40);
+            this.btnRunNetwork.TabIndex = 9;
+            this.toolTip1.SetToolTip(this.btnRunNetwork, "打开网络和共享中心");
+            this.btnRunNetwork.UseVisualStyleBackColor = true;
+            this.btnRunNetwork.Click += new System.EventHandler(this.btnRunNetwork_Click);
+            // 
+            // btnRunServices
+            // 
+            this.btnRunServices.Image = global::_20171009_MAVIF_beta.Properties.Resources.filemgmt_dll_236_;
+            this.btnRunServices.Location = new System.Drawing.Point(611, 12);
+            this.btnRunServices.Name = "btnRunServices";
+            this.btnRunServices.Size = new System.Drawing.Size(40, 40);
+            this.btnRunServices.TabIndex = 8;
+            this.toolTip1.SetToolTip(this.btnRunServices, "打开系统服务");
+            this.btnRunServices.UseVisualStyleBackColor = true;
+            this.btnRunServices.Click += new System.EventHandler(this.btnRunServices_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(672, 474);
+            this.Controls.Add(this.btnRunFileZilla);
+            this.Controls.Add(this.btnRunVMware);
+            this.Controls.Add(this.btnRunApache);
+            this.Controls.Add(this.btnRunNetwork);
             this.Controls.Add(this.gIP);
             this.Controls.Add(this.btnRunServices);
             this.Controls.Add(this.textConsole);
@@ -780,7 +835,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "MAVIF 0.1 Alpha By Ty.Chen";
+            this.Text = "MAVIF 0.2 Alpha By Ty.Chen";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.gMySQL.ResumeLayout(false);
             this.gMySQL.PerformLayout();
@@ -859,6 +914,10 @@
         private System.Windows.Forms.Label labIIP;
         private System.Windows.Forms.Button btnIDHCP;
         private System.Windows.Forms.Label labILanDot;
+        private System.Windows.Forms.Button btnRunNetwork;
+        private System.Windows.Forms.Button btnRunApache;
+        private System.Windows.Forms.Button btnRunVMware;
+        private System.Windows.Forms.Button btnRunFileZilla;
     }
 }
 
