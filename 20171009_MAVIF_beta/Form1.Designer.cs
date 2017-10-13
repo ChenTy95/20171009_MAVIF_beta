@@ -90,7 +90,7 @@
             this.labIStatus = new System.Windows.Forms.Label();
             this.labIIP = new System.Windows.Forms.Label();
             this.btnIDHCP = new System.Windows.Forms.Button();
-            this.btnILanSetIP = new System.Windows.Forms.Button();
+            this.btnISetIP = new System.Windows.Forms.Button();
             this.tBLanIP4 = new System.Windows.Forms.TextBox();
             this.tBLanIP3 = new System.Windows.Forms.TextBox();
             this.tBLanIP2 = new System.Windows.Forms.TextBox();
@@ -712,7 +712,7 @@
             this.gIP.Controls.Add(this.labIStatus);
             this.gIP.Controls.Add(this.labIIP);
             this.gIP.Controls.Add(this.btnIDHCP);
-            this.gIP.Controls.Add(this.btnILanSetIP);
+            this.gIP.Controls.Add(this.btnISetIP);
             this.gIP.Controls.Add(this.tBLanIP4);
             this.gIP.Controls.Add(this.tBLanIP3);
             this.gIP.Controls.Add(this.tBLanIP2);
@@ -780,6 +780,7 @@
             // 
             // btnIDHCP
             // 
+            this.btnIDHCP.Enabled = false;
             this.btnIDHCP.Location = new System.Drawing.Point(244, 56);
             this.btnIDHCP.Name = "btnIDHCP";
             this.btnIDHCP.Size = new System.Drawing.Size(63, 25);
@@ -787,16 +788,17 @@
             this.btnIDHCP.Text = "DHCP";
             this.btnIDHCP.UseVisualStyleBackColor = true;
             // 
-            // btnILanSetIP
+            // btnISetIP
             // 
-            this.btnILanSetIP.BackColor = System.Drawing.Color.OrangeRed;
-            this.btnILanSetIP.ForeColor = System.Drawing.Color.White;
-            this.btnILanSetIP.Location = new System.Drawing.Point(244, 87);
-            this.btnILanSetIP.Name = "btnILanSetIP";
-            this.btnILanSetIP.Size = new System.Drawing.Size(63, 25);
-            this.btnILanSetIP.TabIndex = 3;
-            this.btnILanSetIP.Text = "设定IP";
-            this.btnILanSetIP.UseVisualStyleBackColor = false;
+            this.btnISetIP.BackColor = System.Drawing.Color.OrangeRed;
+            this.btnISetIP.Enabled = false;
+            this.btnISetIP.ForeColor = System.Drawing.Color.White;
+            this.btnISetIP.Location = new System.Drawing.Point(244, 87);
+            this.btnISetIP.Name = "btnISetIP";
+            this.btnISetIP.Size = new System.Drawing.Size(63, 25);
+            this.btnISetIP.TabIndex = 3;
+            this.btnISetIP.Text = "设定IP";
+            this.btnISetIP.UseVisualStyleBackColor = false;
             // 
             // tBLanIP4
             // 
@@ -952,7 +954,7 @@
         private System.Windows.Forms.TextBox tBLanIP3;
         private System.Windows.Forms.TextBox tBLanIP2;
         private System.Windows.Forms.TextBox tBLanIP1;
-        private System.Windows.Forms.Button btnILanSetIP;
+        private System.Windows.Forms.Button btnISetIP;
         private System.Windows.Forms.Label labIStatus;
         private System.Windows.Forms.Label labIIP;
         private System.Windows.Forms.Button btnIDHCP;

@@ -316,7 +316,7 @@ namespace _20171009_MAVIF_beta
             {
                 if (int.Parse(tBLanIP4.Text) > 255)
                     tBLanIP4.Text = "255";
-                btnILanSetIP.Focus();
+                btnISetIP.Focus();
             }
         }
 
@@ -339,6 +339,10 @@ namespace _20171009_MAVIF_beta
         private void cBoxI_SelectedIndexChanged(object sender, EventArgs e)
         {
             LoadIPInfo(cBoxI.Text);
+            if (labIStatus.Text == "已连接")
+                SetIPDA("A");
+            else
+                SetIPDA("D");
         }
 
         private void btnRunVMware_Click(object sender, EventArgs e)
@@ -612,6 +616,8 @@ namespace _20171009_MAVIF_beta
 
             string addItemStr = "";
             cBoxI.Items.Clear();
+
+            string firstNetwork = "";
             for (int i=0; i<=js; i++)
             {
                 if (ipInfoStatic[i,0]=="LAN" || ipInfoStatic[i,0]=="WLAN")//&& (ipInfo[i,1].Contains("以太网") || ipInfo[i,1].Contains("本地连接")))
@@ -623,16 +629,32 @@ namespace _20171009_MAVIF_beta
                         addItemStr = "× " + ipInfoStatic[i, 1];
                     cBoxI.Items.Add(addItemStr);
                 }
-                //优化适配器顺序，效果待测
+                //重写LAN/WLAN优先逻辑
+                
                 if ((ipInfoStatic[i, 1] == "WLAN" || ipInfoStatic[i, 1] == "Wi-Fi" || ipInfoStatic[i, 1] == "无线网络连接") && ipInfoStatic[i, 2] == "Connected")
-                    cBoxI.Text = "√ " + ipInfoStatic[i, 1];
+                    if (firstNetwork == "")
+                        firstNetwork = "√ " + ipInfoStatic[i, 1];
                 if ((ipInfoStatic[i, 1] == "以太网" || ipInfoStatic[i, 1] == "本地连接") && ipInfoStatic[i, 2] == "Connected")
-                    cBoxI.Text = "√ " + ipInfoStatic[i, 1];
-
+                    firstNetwork = "√ " + ipInfoStatic[i, 1];
             }
+            cBoxI.Text = firstNetwork;
 
             // To Be Continued.
 
+        }
+
+        private void SetIPDA(string dora)
+        {
+            if (dora == "D") 
+            {
+                btnIDHCP.Enabled = false;
+                btnISetIP.Enabled = false;
+            }
+            if (dora == "A") 
+            {
+                btnIDHCP.Enabled = true;
+                btnISetIP.Enabled = true;
+            }
         }
 
         private void LoadIPInfo(string str)
