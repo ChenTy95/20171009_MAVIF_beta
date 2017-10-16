@@ -832,10 +832,8 @@ namespace _20171009_MAVIF_beta
 
         private void LoadCustomApp()
         {
-            //if (File.Exists(@"D:\Program Files\PremiumSoft\Navicat Premium\navicat.exe"))
-            //    Console.WriteLine("2");
-            Console.WriteLine(confArr[5, 1] + confArr[5, 2] + confArr[5, 3]);
-            if (confArr[5, 1] == "ON" && File.Exists(@confArr[5, 3])) 
+            Console.WriteLine(confArr[5, 3]);
+            if (confArr[5, 1] == "ON" && File.Exists(confArr[5, 3].ToString().Substring(1, confArr[5, 3].ToString().Length - 2)))
                 Console.WriteLine("22");
         }
 
