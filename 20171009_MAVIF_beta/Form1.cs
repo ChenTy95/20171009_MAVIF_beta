@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using System.ServiceProcess;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
+using System.Runtime.InteropServices;
+using System.IO;
 
 namespace _20171009_MAVIF_beta
 {
@@ -18,6 +20,31 @@ namespace _20171009_MAVIF_beta
         {
             InitializeComponent();
         }
+
+        // 获取应用图标
+        [StructLayout(LayoutKind.Sequential)]
+        public struct SHFILEINFO
+        {
+            public IntPtr hIcon;
+            public IntPtr iIcon;
+            public uint dwAttributes;
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
+            public string szDisplayName;
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 80)]
+            public string szTypeName;
+        };
+
+        class Win32
+        {
+            public const uint SHGFI_ICON = 0x100;
+            public const uint SHGFI_LARGEICON = 0x0; // 'Large icon
+            public const uint SHGFI_SMALLICON = 0x1; // 'Small icon
+            [DllImport("shell32.dll")]
+            public static extern IntPtr SHGetFileInfo(string pszPath, uint dwFileAttributes, ref SHFILEINFO psfi, uint cbSizeFileInfo, uint uFlags);
+            [DllImport("shell32.dll")]
+            public static extern uint ExtractIconEx(string lpszFile, int nIconIndex, int[] phiconLarge, int[] phiconSmall, uint nIcons);
+        }
+        // 引用完毕
 
         static string _M = "null", _A = "null", _V = "null", _F = "null";
         static string cmdOutput;
@@ -43,7 +70,8 @@ namespace _20171009_MAVIF_beta
 
         private void btnMSetManual_Click(object sender, EventArgs e)
         {
-            
+            //Process.Start(Environment.GetEnvironmentVariable("AppData"));
+            LoadCustomApp();
         }
 
         private void RunCMD(string cmdStr, string writeConsole)
@@ -706,9 +734,7 @@ namespace _20171009_MAVIF_beta
                     string str = qcInfo[i];
                     str = str.Substring(str.IndexOf(":") + 3, str.IndexOf(".exe") - str.IndexOf(":") - 3);
                     str = str.Substring(0, str.LastIndexOf(@"\") + 1);
-                    Console.WriteLine(str);
                     fDir = str + fDir;
-                    Console.WriteLine(fDir);
                     btnRunFileZilla.Enabled = true;
                 }
             qcInfo = null;
@@ -721,12 +747,96 @@ namespace _20171009_MAVIF_beta
                     string str = qcInfo[i];
                     str = str.Substring(str.IndexOf(":") + 3, str.IndexOf(".exe") - str.IndexOf(":") - 3);
                     str = str.Substring(0, str.LastIndexOf(@"\") + 1);
-                    Console.WriteLine(str);
                     vDir = str + vDir;
-                    Console.WriteLine(fDir);
                     btnRunVMware.Enabled = true;
                 }
             qcInfo = null;
+        }
+        
+        static string[,] confArr = new string[7, 8];
+
+        private void LoadConfigINI()
+        {
+            string destDir = Environment.GetEnvironmentVariable("AppData") + @"\MAVIF\config.ini";
+
+            if (Directory.Exists(Environment.GetEnvironmentVariable("AppData") + @"\MAVIF") == false)
+                Directory.CreateDirectory(Environment.GetEnvironmentVariable("AppData") + @"\MAVIF");
+
+            if (File.Exists(destDir))
+            {
+                string strLine;
+                string[] strArr = new string[40];
+                int i = 0;
+                StreamReader sr = new StreamReader(destDir);
+                while ((strLine = sr.ReadLine()) != null)
+                {
+                    strArr[i++] = strLine;
+                    if (strLine == "[END]") break;
+                }
+                sr.Close();
+                if (strArr[39] == "[END]")
+                {
+                    try
+                    {
+                        int j;
+                        for (i = 0; i < 40; i++)
+                        {
+                            // strArr[] 1:State; 2:Name; 3:Addr/AppPath; 4:Mask; 5:Gate; 6:DNS1,DNS2
+                            if (strArr[i].Contains("[CONFIG-"))
+                            {
+                                j = int.Parse(strArr[i].Substring(strArr[i].IndexOf("-") + 1, 1));
+                                for (int k = 1; k <= 6; k++)
+                                    confArr[j, k] = strArr[i + k].Substring(strArr[i + k].IndexOf("=") + 1);
+                            }
+                            if (strArr[i].Contains("[APP-"))
+                            {
+                                j = int.Parse(strArr[i].Substring(strArr[i].IndexOf("-") + 1, 1));
+                                for (int k = 1; k <= 3; k++)
+                                    confArr[4 + j, k] = strArr[i + k].Substring(strArr[i + k].IndexOf("=") + 1);
+                            }
+                        }
+                    }
+                    catch
+                    {
+                        confArr = null;
+                        MessageBox.Show("Config.ini Format Error!");
+                    }
+                }
+                else
+                {
+                    strArr = null;
+                    MessageBox.Show("Config.ini Load Error!");
+                }
+            }
+            else
+            {
+                if (File.Exists("config.ini"))
+                {
+                    File.Copy("config.ini", destDir, false);
+                    if (File.Exists(destDir))
+                        File.Delete("config.ini");
+                }
+                else
+                {
+                    string conf = "[MAVIF-CONFIG]\r\n[IP]\r\n[CONFIG-1]\r\nSTATE=ON\r\nNAME=\r\nADDR=\r\nMASK=\r\nGATE=\r\n_DNS=\r\n[CONFIG-2]\r\nSTATE=ON\r\nNAME=\r\nADDR=\r\nMASK=\r\nGATE=\r\n_DNS=\r\n[CONFIG-3]\r\nSTATE=ON\r\nNAME=\r\nADDR=\r\nMASK=\r\nGATE=\r\n_DNS=\r\n[CONFIG-4]\r\nSTATE=ON\r\nNAME=\r\nADDR=\r\nMASK=\r\nGATE=\r\n_DNS=\r\n[CUSTOMAPP]\r\n[APP-1]\r\nSTATE=ON\r\nNAME=\r\nPATH=\r\n[APP-2]\r\nSTATE=ON\r\nNAME=\r\nPATH=\r\n[END]\r\n\r\n[README]\r\n";
+                    string confReadme = "bla bla bla";
+                    FileStream fs = new FileStream(destDir, FileMode.Create);
+                    StreamWriter sw = new StreamWriter(fs);
+                    sw.WriteLine(conf + confReadme);
+                    sw.Close();
+                    fs.Close();
+                }
+
+            }
+        }
+
+        private void LoadCustomApp()
+        {
+            //if (File.Exists(@"D:\Program Files\PremiumSoft\Navicat Premium\navicat.exe"))
+            //    Console.WriteLine("2");
+            Console.WriteLine(confArr[5, 1] + confArr[5, 2] + confArr[5, 3]);
+            if (confArr[5, 1] == "ON" && File.Exists(@confArr[5, 3])) 
+                Console.WriteLine("22");
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -735,6 +845,7 @@ namespace _20171009_MAVIF_beta
             GetServiceInfo();
             GetAppDir();
             GetIPAddrInfo();
+            LoadConfigINI();
         }
         
     }
