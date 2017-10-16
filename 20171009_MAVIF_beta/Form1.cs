@@ -710,6 +710,11 @@ namespace _20171009_MAVIF_beta
                 }
         }
 
+        private void btnRunApp1_Click(object sender, EventArgs e)
+        {
+            Process.Start(AppPath1);
+        }
+
         private void GetAppDir()
         {
             string[] qcInfo;
@@ -752,9 +757,14 @@ namespace _20171009_MAVIF_beta
                 }
             qcInfo = null;
         }
-        
-        static string[,] confArr = new string[7, 8];
 
+        private void btnRunApp1_Click_1(object sender, EventArgs e)
+        {
+            Process.Start(AppPath1);
+        }
+
+        static string[,] confArr = new string[7, 8];
+        
         private void LoadConfigINI()
         {
             string destDir = Environment.GetEnvironmentVariable("AppData") + @"\MAVIF\config.ini";
@@ -795,6 +805,7 @@ namespace _20171009_MAVIF_beta
                                     confArr[4 + j, k] = strArr[i + k].Substring(strArr[i + k].IndexOf("=") + 1);
                             }
                         }
+                        LoadCustomApp();
                     }
                     catch
                     {
@@ -826,15 +837,31 @@ namespace _20171009_MAVIF_beta
                     sw.Close();
                     fs.Close();
                 }
-
             }
         }
 
+        static string AppPath1, AppPath2;
+
         private void LoadCustomApp()
         {
-            Console.WriteLine(confArr[5, 3]);
-            if (confArr[5, 1] == "ON" && File.Exists(confArr[5, 3].ToString().Substring(1, confArr[5, 3].ToString().Length - 2)))
-                Console.WriteLine("22");
+            if (confArr[5, 1] == "ON" && confArr[5, 2] != "" && confArr[5, 3] != "" && File.Exists(AppPath1 = confArr[5, 3].ToString().Substring(1, confArr[5, 3].ToString().Length - 2)))
+            {
+                btnRunApp1.Visible = true;
+                toolTip1.SetToolTip(btnRunApp1, "打开" + confArr[5, 2]);
+                SHFILEINFO shinfo = new SHFILEINFO();
+                Win32.SHGetFileInfo(AppPath1, 0, ref shinfo, (uint)Marshal.SizeOf(shinfo), Win32.SHGFI_ICON | Win32.SHGFI_LARGEICON);
+                Icon myIcon = Icon.FromHandle(shinfo.hIcon);
+                btnRunApp1.Image = myIcon.ToBitmap();
+            }
+            if (confArr[6, 1] == "ON" && confArr[6, 2] != "" && confArr[6, 3] != "" && File.Exists(AppPath2 = confArr[6, 3].ToString().Substring(1, confArr[6, 3].ToString().Length - 2))) 
+            {
+                btnRunApp2.Visible = true;
+                toolTip1.SetToolTip(btnRunApp2, "打开" + confArr[5, 2]);
+                SHFILEINFO shinfo = new SHFILEINFO();
+                Win32.SHGetFileInfo(AppPath2, 0, ref shinfo, (uint)Marshal.SizeOf(shinfo), Win32.SHGFI_ICON | Win32.SHGFI_LARGEICON);
+                Icon myIcon = Icon.FromHandle(shinfo.hIcon);
+                btnRunApp2.Image = myIcon.ToBitmap();
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
