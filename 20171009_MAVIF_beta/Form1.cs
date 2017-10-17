@@ -11,6 +11,8 @@ using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Runtime.InteropServices;
 using System.IO;
+using System.Net;
+using System.Threading;
 
 namespace _20171009_MAVIF_beta
 {
@@ -68,12 +70,6 @@ namespace _20171009_MAVIF_beta
             GetServiceInfo();
         }
 
-        private void btnMSetManual_Click(object sender, EventArgs e)
-        {
-            //Process.Start(Environment.GetEnvironmentVariable("AppData"));
-            LoadCustomApp();
-        }
-
         private void RunCMD(string cmdStr, string writeConsole)
         {
             Process p = new Process();
@@ -99,8 +95,13 @@ namespace _20171009_MAVIF_beta
 
             p.WaitForExit();
             p.Close();
-            if (writeConsole=="Y")
-                textConsole.Text += "\r\n\r\n[ " + DateTime.Now.ToString() +" ]\r\n" + cmdOutput;
+            if (writeConsole == "Y")
+                PrintConsole(cmdOutput);
+        }
+
+        private void PrintConsole(string str)
+        {
+            textConsole.Text += "\r\n\r\n[ " + DateTime.Now.ToString() + " ]\r\n" + str;
         }
 
         private void btnARun_Click(object sender, EventArgs e)
@@ -351,31 +352,44 @@ namespace _20171009_MAVIF_beta
         private void btnRunNetwork_Click(object sender, EventArgs e)
         {
             RunCMD(@"%windir%\system32\control.exe /name Microsoft.NetworkAndSharingCenter", "N");
+            PrintConsole("打开  网络与共享中心");
             //Process.Start("RunDLL32.exe", "shell32.dll,Control_RunDLL ncpa.cpl");
         }
 
         private void btnRunApache_Click(object sender, EventArgs e)
         {
             Process.Start(@aDir);
+            PrintConsole("打开  Apache Monitor");
         }
 
         private void btnRunFileZilla_Click(object sender, EventArgs e)
         {
             Process.Start(@fDir);
+            PrintConsole("打开  FileZilla Server");
         }
 
         private void cBoxI_SelectedIndexChanged(object sender, EventArgs e)
         {
             LoadIPInfo(cBoxI.Text);
-            if (labIStatus.Text == "已连接")
-                SetIPDA("A");
-            else
-                SetIPDA("D");
+            if (labIStatus.Text != "已连接")
+            {
+                SetIPED("D");
+                SetIPInputED("D");
+                labIInfoTxt.Text = "---\r\n---\r\n---\r\n---";
+                SetConfBtnColor(0);
+            }
+            if (labIStatus.Text == "已连接" && labIInfoTxt.Text != "---\r\n---\r\n---\r\n---") 
+            {
+                SetIPED("E");
+            }
+            if (cBoxI.Text == "")
+                timer1.Enabled = true;
         }
 
         private void btnRunVMware_Click(object sender, EventArgs e)
         {
             Process.Start(@vDir);
+            PrintConsole("打开  VMware Workstation");
         }
 
         private void GetServiceInfo()
@@ -667,21 +681,35 @@ namespace _20171009_MAVIF_beta
             }
             cBoxI.Text = firstNetwork;
 
-            // To Be Continued.
-
         }
 
-        private void SetIPDA(string dora)
+        private void SetIPED(string eord)
         {
-            if (dora == "D") 
-            {
-                btnIDHCP.Enabled = false;
+            if (eord == "D") 
                 btnISetIP.Enabled = false;
-            }
-            if (dora == "A") 
-            {
-                btnIDHCP.Enabled = true;
+            if (eord == "E") 
                 btnISetIP.Enabled = true;
+        }
+
+        private void SetIPInputED(string eord)
+        {
+            if (eord == "D")
+            {
+                tBLanIP1.Text = "";
+                tBLanIP2.Text = "";
+                tBLanIP3.Text = "";
+                tBLanIP4.Text = "";
+                tBLanIP1.Enabled = false;
+                tBLanIP2.Enabled = false;
+                tBLanIP3.Enabled = false;
+                tBLanIP4.Enabled = false;
+            }
+            if (eord == "E")
+            {
+                tBLanIP1.Enabled = true;
+                tBLanIP2.Enabled = true;
+                tBLanIP3.Enabled = true;
+                tBLanIP4.Enabled = true;
             }
         }
 
@@ -761,10 +789,42 @@ namespace _20171009_MAVIF_beta
         private void btnRunApp1_Click_1(object sender, EventArgs e)
         {
             Process.Start(AppPath1);
+            PrintConsole("打开  " + AppPath1);
         }
 
-        static string[,] confArr = new string[7, 8];
-        
+        private void btnRunApp2_Click(object sender, EventArgs e)
+        {
+            Process.Start(AppPath2);
+            PrintConsole("打开  " + AppPath2);
+        }
+
+        static string[,] confArr = new string[7, 7];
+
+        private void btnIConf_Click(object sender, EventArgs e)
+        {
+            Process.Start(Environment.GetEnvironmentVariable("AppData") + @"\MAVIF\config.ini");
+        }
+
+        private void btnIConf1_Click(object sender, EventArgs e)
+        {
+            LoadCustomIP(1);
+        }
+
+        private void btnIConf2_Click(object sender, EventArgs e)
+        {
+            LoadCustomIP(2);
+        }
+
+        private void btnIConf3_Click(object sender, EventArgs e)
+        {
+            LoadCustomIP(3);
+        }
+
+        private void btnIConf4_Click(object sender, EventArgs e)
+        {
+            LoadCustomIP(4);
+        }
+
         private void LoadConfigINI()
         {
             string destDir = Environment.GetEnvironmentVariable("AppData") + @"\MAVIF\config.ini";
@@ -772,6 +832,27 @@ namespace _20171009_MAVIF_beta
             if (Directory.Exists(Environment.GetEnvironmentVariable("AppData") + @"\MAVIF") == false)
                 Directory.CreateDirectory(Environment.GetEnvironmentVariable("AppData") + @"\MAVIF");
 
+            if (!File.Exists(destDir))
+            {
+                if (File.Exists("config.ini"))
+                {
+                    File.Copy("config.ini", destDir, false);
+                    if (File.Exists(destDir))
+                        File.Delete("config.ini");
+                    PrintConsole("config.ini copy OK!");
+                }
+                else
+                {
+                    string conf = "[MAVIF-CONFIG]\r\n[IP]\r\n[CONFIG-1]\r\nSTATE=OFF\r\nNAME=\r\nADDR=\r\nMASK=\r\nGATE=\r\n_DNS=\r\n[CONFIG-2]\r\nSTATE=OFF\r\nNAME=\r\nADDR=\r\nMASK=\r\nGATE=\r\n_DNS=\r\n[CONFIG-3]\r\nSTATE=OFF\r\nNAME=\r\nADDR=\r\nMASK=\r\nGATE=\r\n_DNS=\r\n[CONFIG-4]\r\nSTATE=OFF\r\nNAME=\r\nADDR=\r\nMASK=\r\nGATE=\r\n_DNS=\r\n[CUSTOMAPP]\r\n[APP-1]\r\nSTATE=OFF\r\nNAME=\r\nPATH=\r\n[APP-2]\r\nSTATE=OFF\r\nNAME=\r\nPATH=\r\n[END]\r\n\r\n[README]\r\n";
+                    string confReadme = "*1.将此配置文件修改后与MAVIF.exe放置在同一目录下，运行MAVIF即可完成配置；\r\n 2.配置文件路径为 %AppData%\\config.ini；\r\n 3.STATE表示启用与否，设置为“OFF”即可停用该配置项；\r\n 4.NAME将显示在按钮表面，可自由填写以便识别；\r\n*5.IP设置中，采用固定地址请按要求填写，ADDR为IP地址，MASK为子网掩码，GATE为网关\r\n   如有双DNS，请按顺序用英文半角逗号分隔，如：8.8.8.8,4.4.4.4；\r\n*6.自定义APP设置中，文件PATH应填写.exe的完整路径，并用英文半角双引号括起来\r\n   推荐使用Windows资源管理器中的“复制路径”进行粘贴；\r\n 7.在使用中如发现Bug，欢迎您向chenxy5@sda.cn反馈，非常感谢！";
+                    FileStream fs = new FileStream(destDir, FileMode.Create);
+                    StreamWriter sw = new StreamWriter(fs);
+                    sw.WriteLine(conf + confReadme);
+                    sw.Close();
+                    fs.Close();
+                    PrintConsole("config.ini init OK!");
+                }
+            }
             if (File.Exists(destDir))
             {
                 string strLine;
@@ -805,7 +886,7 @@ namespace _20171009_MAVIF_beta
                                     confArr[4 + j, k] = strArr[i + k].Substring(strArr[i + k].IndexOf("=") + 1);
                             }
                         }
-                        LoadCustomApp();
+
                     }
                     catch
                     {
@@ -819,25 +900,83 @@ namespace _20171009_MAVIF_beta
                     MessageBox.Show("Config.ini Load Error!");
                 }
             }
+
+            btnIConf.Enabled = true;
+            LoadCustomApp();
+            LoadCustomIP(0);
+            PrintConsole("config.ini load OK!");
+            LoadCustomIP(1);
+        }
+
+        private void btnISetIP_Click(object sender, EventArgs e)
+        {
+            string interfaceName = cBoxI.Text.Substring(2);
+            string[] ipConf = labIInfoTxt.Text.Split(Environment.NewLine.ToCharArray());
+            string ipStr = tBLanIP1.Text + "." + tBLanIP2.Text + "." + tBLanIP3.Text + "." + tBLanIP4.Text;
+            string mask = ipConf[2];
+            string gate = ipConf[4];
+            string dns1 = ipConf[6];
+            string dns2 = null;
+            if (ipConf.Length > 7)
+                dns2 = ipConf[8];
+            string ipSetStr;
+            //DHCP
+            if (ipStr=="...")
+            {
+                ipSetStr = "netsh interface ip set address name=\"" + interfaceName + "\" source=dhcp";
+                RunCMD(ipSetStr, "N");
+                ipSetStr= "netsh interface ip set dns name=\"" + interfaceName + "\" source=dhcp";
+                RunCMD(ipSetStr, "N");
+                ipSetStr = "ipconfig /flushdns";
+                RunCMD(ipSetStr, "N");
+                PrintConsole(interfaceName + " Setting DHCP ......");
+            }
+            //Static
             else
             {
-                if (File.Exists("config.ini"))
+                ipSetStr = "netsh interface ip set address name=\"" + interfaceName + "\"" +
+                    " source=static addr=" + ipStr + " mask=" + mask + " gateway=" + gate;
+                RunCMD(ipSetStr, "N");
+                ipSetStr = "netsh interface ip delete dns \"" + interfaceName + "\" all";
+                RunCMD(ipSetStr, "N");
+                ipSetStr = "netsh interface ip set dns name=\"" + interfaceName + "\"" +
+                    " source=static addr=" + dns1;
+                RunCMD(ipSetStr, "N");
+
+                if (dns2 != null)
                 {
-                    File.Copy("config.ini", destDir, false);
-                    if (File.Exists(destDir))
-                        File.Delete("config.ini");
+                    ipSetStr = "netsh interface ip add dns name=\"" + interfaceName + "\"" +
+                   " addr=" + dns2;
+                    RunCMD(ipSetStr, "N");
                 }
-                else
-                {
-                    string conf = "[MAVIF-CONFIG]\r\n[IP]\r\n[CONFIG-1]\r\nSTATE=ON\r\nNAME=\r\nADDR=\r\nMASK=\r\nGATE=\r\n_DNS=\r\n[CONFIG-2]\r\nSTATE=ON\r\nNAME=\r\nADDR=\r\nMASK=\r\nGATE=\r\n_DNS=\r\n[CONFIG-3]\r\nSTATE=ON\r\nNAME=\r\nADDR=\r\nMASK=\r\nGATE=\r\n_DNS=\r\n[CONFIG-4]\r\nSTATE=ON\r\nNAME=\r\nADDR=\r\nMASK=\r\nGATE=\r\n_DNS=\r\n[CUSTOMAPP]\r\n[APP-1]\r\nSTATE=ON\r\nNAME=\r\nPATH=\r\n[APP-2]\r\nSTATE=ON\r\nNAME=\r\nPATH=\r\n[END]\r\n\r\n[README]\r\n";
-                    string confReadme = "bla bla bla";
-                    FileStream fs = new FileStream(destDir, FileMode.Create);
-                    StreamWriter sw = new StreamWriter(fs);
-                    sw.WriteLine(conf + confReadme);
-                    sw.Close();
-                    fs.Close();
-                }
+
+                PrintConsole(interfaceName + " Setting Static ......\r\nIP地址=" + ipStr + " \r\n子网掩码=" + mask + "\r\n网关=" + gate + "\r\nDNS_1=" + dns1 + "\r\nDNS_2=" + dns2);
             }
+            cBoxI.Focus();
+            labIStatus.Text = "正在变更";
+            labIStatus.ForeColor = Color.Red;
+            labIIP.Text = "IP: 等待确认";
+            GetIPAddrInfo();
+            timer1.Enabled = true;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (cBoxI.Text == "")
+            {
+                btnISetIP.Enabled = false;
+                GetIPAddrInfo();
+            }
+            else
+            {
+                timer1.Enabled = false;
+                PrintConsole("SET OK!");
+            }
+        }
+
+        private void btnIConfReload_Click(object sender, EventArgs e)
+        {
+            LoadConfigINI();
         }
 
         static string AppPath1, AppPath2;
@@ -856,11 +995,155 @@ namespace _20171009_MAVIF_beta
             if (confArr[6, 1] == "ON" && confArr[6, 2] != "" && confArr[6, 3] != "" && File.Exists(AppPath2 = confArr[6, 3].ToString().Substring(1, confArr[6, 3].ToString().Length - 2))) 
             {
                 btnRunApp2.Visible = true;
-                toolTip1.SetToolTip(btnRunApp2, "打开" + confArr[5, 2]);
+                toolTip1.SetToolTip(btnRunApp2, "打开" + confArr[6, 2]);
                 SHFILEINFO shinfo = new SHFILEINFO();
                 Win32.SHGetFileInfo(AppPath2, 0, ref shinfo, (uint)Marshal.SizeOf(shinfo), Win32.SHGFI_ICON | Win32.SHGFI_LARGEICON);
                 Icon myIcon = Icon.FromHandle(shinfo.hIcon);
                 btnRunApp2.Image = myIcon.ToBitmap();
+            }
+        }
+
+        private void LoadCustomIP(int confNo)
+        {
+            SetConfBtnColor(confNo);
+            if (confNo == 0) 
+            {
+                if (confArr[1, 1] == "ON")
+                {
+                    btnIConf1.Text = confArr[1, 2];
+                    btnIConf1.Enabled = true;
+                }
+                if (confArr[2, 1] == "ON")
+                {
+                    btnIConf2.Text = confArr[2, 2];
+                    btnIConf2.Enabled = true;
+                }
+                if (confArr[3, 1] == "ON")
+                {
+                    btnIConf3.Text = confArr[3, 2];
+                    btnIConf3.Enabled = true;
+                }
+                if (confArr[4, 1] == "ON")
+                {
+                    btnIConf4.Text = confArr[4, 2];
+                    btnIConf4.Enabled = true;
+                }
+            }
+            else if (confArr[confNo, 1] == "ON")
+            {
+                labIInfoTxt.Text = confArr[confNo, 2];
+                if (confArr[confNo, 3] == "DHCP") 
+                {
+                    labIInfoTxt.Text = confArr[confNo, 2] + "\r\n---\r\n---\r\n---";
+                    cBoxI.Focus();
+                    if (labIStatus.Text == "已连接")
+                    {
+                        SetIPED("E");
+                        btnISetIP.Focus();
+                    }
+                    SetIPInputED("D");
+                }
+                else
+                {
+                    bool isLegal = true;
+                    string dns1="null", dns2="null";
+                    if (confArr[confNo, 6].Contains(",")) 
+                    {
+                        dns1 = confArr[confNo, 6].Substring(0, confArr[confNo, 6].IndexOf(",")).Trim();
+                        dns2 = confArr[confNo, 6].Substring(confArr[confNo, 6].IndexOf(",") + 1).Trim();
+                    }
+                    else
+                    {
+                        dns1 = confArr[confNo, 6].Trim();
+                    }
+                    if (IPAddress.TryParse(confArr[confNo, 3].Trim(), out IPAddress ip))
+                    {
+                        SetIPInputED("E");
+                        string[] ipAddr = confArr[confNo, 3].Trim().Split('.');
+                        tBLanIP1.Text = ipAddr[0];
+                        tBLanIP2.Text = ipAddr[1];
+                        tBLanIP3.Text = ipAddr[2];
+                        tBLanIP4.Text = ipAddr[3];
+                        if (IPAddress.TryParse(confArr[confNo, 4].Trim(), out ip))
+                        {
+                            labIInfoTxt.Text += "\r\n" + confArr[confNo, 4].Trim();
+                            if (IPAddress.TryParse(confArr[confNo, 5].Trim(), out ip))
+                            {
+                                labIInfoTxt.Text += "\r\n" + confArr[confNo, 5].Trim();
+                                if (IPAddress.TryParse(dns1, out ip))
+                                {
+                                    labIInfoTxt.Text += "\r\n" + dns1;
+                                    if (dns2 != "null")
+                                        if (IPAddress.TryParse(dns2, out ip))
+                                            labIInfoTxt.Text += "\r\n" + dns2;
+                                        else
+                                        {
+                                            MessageBox.Show("DNS2 Illegal!");
+                                            isLegal = false;
+                                        }
+                                    if (labIStatus.Text == "已连接")
+                                    {
+                                        SetIPED("E");
+                                        btnISetIP.Focus();
+                                    }
+                                    else
+                                        cBoxI.Focus();
+                                }
+                                else
+                                {
+                                    MessageBox.Show("DNS1 Illegal!");
+                                    isLegal = false;
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("GateWay Illegal!");
+                                isLegal = false;
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Subnet Mask Illegal!");
+                            isLegal = false;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("IP Address Illegal!");
+                        isLegal = false;
+                    }
+
+                    if (!isLegal)
+                    {
+                        SetIPED("D");
+                        SetIPInputED("D");
+                        labIInfoTxt.Text = "---\r\n---\r\n---\r\n---";
+                        SetConfBtnColor(0);
+                    }
+                }
+
+            }
+        }
+
+        private void SetConfBtnColor(int btnNo)
+        {
+            btnIConf1.ForeColor = SystemColors.ControlText;
+            btnIConf2.ForeColor = SystemColors.ControlText;
+            btnIConf3.ForeColor = SystemColors.ControlText;
+            btnIConf4.ForeColor = SystemColors.ControlText;
+            switch(btnNo) {
+                case 1 :
+                    btnIConf1.ForeColor = SystemColors.Highlight;
+                    break;
+                case 2 :
+                    btnIConf2.ForeColor = SystemColors.Highlight;
+                    break;
+                case 3:
+                    btnIConf3.ForeColor = SystemColors.Highlight;
+                    break;
+                case 4:
+                    btnIConf4.ForeColor = SystemColors.Highlight;
+                    break;
             }
         }
 
@@ -872,6 +1155,5 @@ namespace _20171009_MAVIF_beta
             GetIPAddrInfo();
             LoadConfigINI();
         }
-        
     }
 }

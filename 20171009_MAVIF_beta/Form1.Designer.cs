@@ -39,7 +39,6 @@
             this.labMSN = new System.Windows.Forms.Label();
             this.labTitle1 = new System.Windows.Forms.Label();
             this.labTitle2 = new System.Windows.Forms.Label();
-            this.btnMSetManual = new System.Windows.Forms.Button();
             this.gApache = new System.Windows.Forms.GroupBox();
             this.btnAStop = new System.Windows.Forms.Button();
             this.btnARun = new System.Windows.Forms.Button();
@@ -77,21 +76,25 @@
             this.labVNAT = new System.Windows.Forms.Label();
             this.textConsole = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.btnRunApp1 = new System.Windows.Forms.Button();
-            this.btnRunApp2 = new System.Windows.Forms.Button();
             this.btnRunFileZilla = new System.Windows.Forms.Button();
             this.btnRunVMware = new System.Windows.Forms.Button();
             this.btnRunApache = new System.Windows.Forms.Button();
             this.btnRunNetwork = new System.Windows.Forms.Button();
             this.btnRunServices = new System.Windows.Forms.Button();
+            this.btnRunApp1 = new System.Windows.Forms.Button();
+            this.btnRunApp2 = new System.Windows.Forms.Button();
             this.cBoxI = new System.Windows.Forms.ComboBox();
             this.gIP = new System.Windows.Forms.GroupBox();
+            this.btnIConf = new System.Windows.Forms.Button();
+            this.btnIConf4 = new System.Windows.Forms.Button();
+            this.btnIConf3 = new System.Windows.Forms.Button();
+            this.btnIConf2 = new System.Windows.Forms.Button();
+            this.btnIConf1 = new System.Windows.Forms.Button();
             this.btnIReFresh = new System.Windows.Forms.Button();
-            this.labIInfo = new System.Windows.Forms.Label();
+            this.labIInfoTxt = new System.Windows.Forms.Label();
             this.labIType = new System.Windows.Forms.Label();
             this.labIStatus = new System.Windows.Forms.Label();
             this.labIIP = new System.Windows.Forms.Label();
-            this.btnIDHCP = new System.Windows.Forms.Button();
             this.btnISetIP = new System.Windows.Forms.Button();
             this.tBLanIP4 = new System.Windows.Forms.TextBox();
             this.tBLanIP3 = new System.Windows.Forms.TextBox();
@@ -99,6 +102,9 @@
             this.tBLanIP1 = new System.Windows.Forms.TextBox();
             this.labI = new System.Windows.Forms.Label();
             this.labILanDot = new System.Windows.Forms.Label();
+            this.labIInfo = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.btnIConfReload = new System.Windows.Forms.Button();
             this.gMySQL.SuspendLayout();
             this.gApache.SuspendLayout();
             this.gFileZilla.SuspendLayout();
@@ -190,9 +196,9 @@
             this.labTitle1.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.labTitle1.Location = new System.Drawing.Point(12, 9);
             this.labTitle1.Name = "labTitle1";
-            this.labTitle1.Size = new System.Drawing.Size(299, 27);
+            this.labTitle1.Size = new System.Drawing.Size(286, 27);
             this.labTitle1.TabIndex = 1;
-            this.labTitle1.Text = "MAVIF Controller v0.2 Alpha";
+            this.labTitle1.Text = "MAVIF Controller v1.1 Beta";
             // 
             // labTitle2
             // 
@@ -204,16 +210,6 @@
             this.labTitle2.Size = new System.Drawing.Size(279, 17);
             this.labTitle2.TabIndex = 2;
             this.labTitle2.Text = "For MySQL / Apache / VMware / IP Addr / FTP";
-            // 
-            // btnMSetManual
-            // 
-            this.btnMSetManual.Location = new System.Drawing.Point(131, 350);
-            this.btnMSetManual.Name = "btnMSetManual";
-            this.btnMSetManual.Size = new System.Drawing.Size(163, 32);
-            this.btnMSetManual.TabIndex = 5;
-            this.btnMSetManual.Text = "Set Manual";
-            this.btnMSetManual.UseVisualStyleBackColor = true;
-            this.btnMSetManual.Click += new System.EventHandler(this.btnMSetManual_Click);
             // 
             // gApache
             // 
@@ -306,7 +302,7 @@
             this.gFileZilla.Size = new System.Drawing.Size(293, 82);
             this.gFileZilla.TabIndex = 6;
             this.gFileZilla.TabStop = false;
-            this.gFileZilla.Text = "FileZilla Server";
+            this.gFileZilla.Text = " FileZilla Server";
             // 
             // btnFStop
             // 
@@ -393,7 +389,7 @@
             this.gVMware.Controls.Add(this.btnVNATRun);
             this.gVMware.Controls.Add(this.labVNATTxt);
             this.gVMware.Controls.Add(this.labVNAT);
-            this.gVMware.Location = new System.Drawing.Point(330, 299);
+            this.gVMware.Location = new System.Drawing.Point(330, 312);
             this.gVMware.Name = "gVMware";
             this.gVMware.Size = new System.Drawing.Size(321, 161);
             this.gVMware.TabIndex = 5;
@@ -629,32 +625,13 @@
             this.textConsole.BackColor = System.Drawing.Color.Black;
             this.textConsole.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textConsole.ForeColor = System.Drawing.Color.White;
-            this.textConsole.Location = new System.Drawing.Point(20, 329);
+            this.textConsole.Location = new System.Drawing.Point(19, 337);
             this.textConsole.Multiline = true;
             this.textConsole.Name = "textConsole";
             this.textConsole.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textConsole.Size = new System.Drawing.Size(292, 131);
+            this.textConsole.Size = new System.Drawing.Size(292, 136);
             this.textConsole.TabIndex = 7;
             this.textConsole.TextChanged += new System.EventHandler(this.textConsole_TextChanged);
-            // 
-            // btnRunApp1
-            // 
-            this.btnRunApp1.Location = new System.Drawing.Point(381, 12);
-            this.btnRunApp1.Name = "btnRunApp1";
-            this.btnRunApp1.Size = new System.Drawing.Size(40, 40);
-            this.btnRunApp1.TabIndex = 13;
-            this.btnRunApp1.UseVisualStyleBackColor = true;
-            this.btnRunApp1.Visible = false;
-            this.btnRunApp1.Click += new System.EventHandler(this.btnRunApp1_Click_1);
-            // 
-            // btnRunApp2
-            // 
-            this.btnRunApp2.Location = new System.Drawing.Point(335, 12);
-            this.btnRunApp2.Name = "btnRunApp2";
-            this.btnRunApp2.Size = new System.Drawing.Size(40, 40);
-            this.btnRunApp2.TabIndex = 14;
-            this.btnRunApp2.UseVisualStyleBackColor = true;
-            this.btnRunApp2.Visible = false;
             // 
             // btnRunFileZilla
             // 
@@ -714,6 +691,26 @@
             this.btnRunServices.UseVisualStyleBackColor = true;
             this.btnRunServices.Click += new System.EventHandler(this.btnRunServices_Click);
             // 
+            // btnRunApp1
+            // 
+            this.btnRunApp1.Location = new System.Drawing.Point(381, 12);
+            this.btnRunApp1.Name = "btnRunApp1";
+            this.btnRunApp1.Size = new System.Drawing.Size(40, 40);
+            this.btnRunApp1.TabIndex = 13;
+            this.btnRunApp1.UseVisualStyleBackColor = true;
+            this.btnRunApp1.Visible = false;
+            this.btnRunApp1.Click += new System.EventHandler(this.btnRunApp1_Click_1);
+            // 
+            // btnRunApp2
+            // 
+            this.btnRunApp2.Location = new System.Drawing.Point(335, 12);
+            this.btnRunApp2.Name = "btnRunApp2";
+            this.btnRunApp2.Size = new System.Drawing.Size(40, 40);
+            this.btnRunApp2.TabIndex = 14;
+            this.btnRunApp2.UseVisualStyleBackColor = true;
+            this.btnRunApp2.Visible = false;
+            this.btnRunApp2.Click += new System.EventHandler(this.btnRunApp2_Click);
+            // 
             // cBoxI
             // 
             this.cBoxI.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -727,12 +724,17 @@
             // 
             // gIP
             // 
+            this.gIP.Controls.Add(this.btnIConfReload);
+            this.gIP.Controls.Add(this.btnIConf);
+            this.gIP.Controls.Add(this.btnIConf4);
+            this.gIP.Controls.Add(this.btnIConf3);
+            this.gIP.Controls.Add(this.btnIConf2);
+            this.gIP.Controls.Add(this.btnIConf1);
             this.gIP.Controls.Add(this.btnIReFresh);
-            this.gIP.Controls.Add(this.labIInfo);
+            this.gIP.Controls.Add(this.labIInfoTxt);
             this.gIP.Controls.Add(this.labIType);
             this.gIP.Controls.Add(this.labIStatus);
             this.gIP.Controls.Add(this.labIIP);
-            this.gIP.Controls.Add(this.btnIDHCP);
             this.gIP.Controls.Add(this.btnISetIP);
             this.gIP.Controls.Add(this.tBLanIP4);
             this.gIP.Controls.Add(this.tBLanIP3);
@@ -741,33 +743,93 @@
             this.gIP.Controls.Add(this.labI);
             this.gIP.Controls.Add(this.cBoxI);
             this.gIP.Controls.Add(this.labILanDot);
+            this.gIP.Controls.Add(this.labIInfo);
             this.gIP.Location = new System.Drawing.Point(331, 65);
             this.gIP.Name = "gIP";
-            this.gIP.Size = new System.Drawing.Size(320, 197);
+            this.gIP.Size = new System.Drawing.Size(320, 241);
             this.gIP.TabIndex = 3;
             this.gIP.TabStop = false;
             this.gIP.Text = " IP Settings ";
             // 
+            // btnIConf
+            // 
+            this.btnIConf.Enabled = false;
+            this.btnIConf.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnIConf.Location = new System.Drawing.Point(142, 119);
+            this.btnIConf.Name = "btnIConf";
+            this.btnIConf.Size = new System.Drawing.Size(60, 26);
+            this.btnIConf.TabIndex = 39;
+            this.btnIConf.Text = "配置";
+            this.btnIConf.UseVisualStyleBackColor = true;
+            this.btnIConf.Click += new System.EventHandler(this.btnIConf_Click);
+            // 
+            // btnIConf4
+            // 
+            this.btnIConf4.Enabled = false;
+            this.btnIConf4.Font = new System.Drawing.Font("微软雅黑", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnIConf4.Location = new System.Drawing.Point(17, 206);
+            this.btnIConf4.Name = "btnIConf4";
+            this.btnIConf4.Size = new System.Drawing.Size(119, 26);
+            this.btnIConf4.TabIndex = 37;
+            this.btnIConf4.Text = "IP Config 4";
+            this.btnIConf4.UseVisualStyleBackColor = true;
+            this.btnIConf4.Click += new System.EventHandler(this.btnIConf4_Click);
+            // 
+            // btnIConf3
+            // 
+            this.btnIConf3.Enabled = false;
+            this.btnIConf3.Font = new System.Drawing.Font("微软雅黑", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnIConf3.Location = new System.Drawing.Point(17, 177);
+            this.btnIConf3.Name = "btnIConf3";
+            this.btnIConf3.Size = new System.Drawing.Size(119, 26);
+            this.btnIConf3.TabIndex = 36;
+            this.btnIConf3.Text = "IP Config 3";
+            this.btnIConf3.UseVisualStyleBackColor = true;
+            this.btnIConf3.Click += new System.EventHandler(this.btnIConf3_Click);
+            // 
+            // btnIConf2
+            // 
+            this.btnIConf2.Enabled = false;
+            this.btnIConf2.Font = new System.Drawing.Font("微软雅黑", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnIConf2.Location = new System.Drawing.Point(17, 148);
+            this.btnIConf2.Name = "btnIConf2";
+            this.btnIConf2.Size = new System.Drawing.Size(119, 26);
+            this.btnIConf2.TabIndex = 35;
+            this.btnIConf2.Text = "IP Config 2";
+            this.btnIConf2.UseVisualStyleBackColor = true;
+            this.btnIConf2.Click += new System.EventHandler(this.btnIConf2_Click);
+            // 
+            // btnIConf1
+            // 
+            this.btnIConf1.Enabled = false;
+            this.btnIConf1.Font = new System.Drawing.Font("微软雅黑", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnIConf1.Location = new System.Drawing.Point(17, 119);
+            this.btnIConf1.Name = "btnIConf1";
+            this.btnIConf1.Size = new System.Drawing.Size(119, 26);
+            this.btnIConf1.TabIndex = 34;
+            this.btnIConf1.Text = "IP Config 1";
+            this.btnIConf1.UseVisualStyleBackColor = true;
+            this.btnIConf1.Click += new System.EventHandler(this.btnIConf1_Click);
+            // 
             // btnIReFresh
             // 
-            this.btnIReFresh.Location = new System.Drawing.Point(9, 86);
+            this.btnIReFresh.Location = new System.Drawing.Point(244, 56);
             this.btnIReFresh.Name = "btnIReFresh";
-            this.btnIReFresh.Size = new System.Drawing.Size(52, 26);
+            this.btnIReFresh.Size = new System.Drawing.Size(62, 26);
             this.btnIReFresh.TabIndex = 33;
             this.btnIReFresh.Text = "刷新\r\n";
             this.btnIReFresh.UseVisualStyleBackColor = true;
             this.btnIReFresh.Click += new System.EventHandler(this.btnIReFresh_Click);
             // 
-            // labIInfo
+            // labIInfoTxt
             // 
-            this.labIInfo.AutoSize = true;
-            this.labIInfo.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labIInfo.Location = new System.Drawing.Point(131, 118);
-            this.labIInfo.Name = "labIInfo";
-            this.labIInfo.Size = new System.Drawing.Size(175, 70);
-            this.labIInfo.TabIndex = 32;
-            this.labIInfo.Text = "   Name: SDA LAN Static\r\n   Mask: 255.255.255.255\r\nGateway: 255.255.255.255\r\n    " +
-    "DNS: 255.255.255.255\r\n         255.255.255.255";
+            this.labIInfoTxt.AutoSize = true;
+            this.labIInfoTxt.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labIInfoTxt.Location = new System.Drawing.Point(205, 152);
+            this.labIInfoTxt.Name = "labIInfoTxt";
+            this.labIInfoTxt.Size = new System.Drawing.Size(23, 85);
+            this.labIInfoTxt.TabIndex = 32;
+            this.labIInfoTxt.Text = "---\r\n---\r\n---\r\n---\r\n---";
             // 
             // labIType
             // 
@@ -799,60 +861,52 @@
             this.labIIP.TabIndex = 18;
             this.labIIP.Text = "IP: 255.255.255.255";
             // 
-            // btnIDHCP
-            // 
-            this.btnIDHCP.Enabled = false;
-            this.btnIDHCP.Location = new System.Drawing.Point(244, 56);
-            this.btnIDHCP.Name = "btnIDHCP";
-            this.btnIDHCP.Size = new System.Drawing.Size(63, 25);
-            this.btnIDHCP.TabIndex = 2;
-            this.btnIDHCP.Text = "DHCP";
-            this.btnIDHCP.UseVisualStyleBackColor = true;
-            // 
             // btnISetIP
             // 
-            this.btnISetIP.BackColor = System.Drawing.Color.OrangeRed;
+            this.btnISetIP.BackColor = System.Drawing.Color.RoyalBlue;
             this.btnISetIP.Enabled = false;
-            this.btnISetIP.ForeColor = System.Drawing.Color.White;
-            this.btnISetIP.Location = new System.Drawing.Point(244, 87);
+            this.btnISetIP.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnISetIP.ForeColor = System.Drawing.Color.Transparent;
+            this.btnISetIP.Location = new System.Drawing.Point(244, 88);
             this.btnISetIP.Name = "btnISetIP";
-            this.btnISetIP.Size = new System.Drawing.Size(63, 25);
+            this.btnISetIP.Size = new System.Drawing.Size(63, 57);
             this.btnISetIP.TabIndex = 3;
-            this.btnISetIP.Text = "设定IP";
+            this.btnISetIP.Text = "设定";
             this.btnISetIP.UseVisualStyleBackColor = false;
+            this.btnISetIP.Click += new System.EventHandler(this.btnISetIP_Click);
             // 
             // tBLanIP4
             // 
-            this.tBLanIP4.Location = new System.Drawing.Point(199, 88);
+            this.tBLanIP4.Location = new System.Drawing.Point(188, 88);
             this.tBLanIP4.Name = "tBLanIP4";
-            this.tBLanIP4.Size = new System.Drawing.Size(36, 23);
+            this.tBLanIP4.Size = new System.Drawing.Size(46, 23);
             this.tBLanIP4.TabIndex = 15;
             this.tBLanIP4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.tBLanIP4.TextChanged += new System.EventHandler(this.tBLanIP4_TextChanged);
             // 
             // tBLanIP3
             // 
-            this.tBLanIP3.Location = new System.Drawing.Point(155, 88);
+            this.tBLanIP3.Location = new System.Drawing.Point(132, 88);
             this.tBLanIP3.Name = "tBLanIP3";
-            this.tBLanIP3.Size = new System.Drawing.Size(36, 23);
+            this.tBLanIP3.Size = new System.Drawing.Size(46, 23);
             this.tBLanIP3.TabIndex = 14;
             this.tBLanIP3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.tBLanIP3.TextChanged += new System.EventHandler(this.tBLanIP3_TextChanged);
             // 
             // tBLanIP2
             // 
-            this.tBLanIP2.Location = new System.Drawing.Point(111, 88);
+            this.tBLanIP2.Location = new System.Drawing.Point(75, 88);
             this.tBLanIP2.Name = "tBLanIP2";
-            this.tBLanIP2.Size = new System.Drawing.Size(36, 23);
+            this.tBLanIP2.Size = new System.Drawing.Size(46, 23);
             this.tBLanIP2.TabIndex = 13;
             this.tBLanIP2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.tBLanIP2.TextChanged += new System.EventHandler(this.tBLanIP2_TextChanged);
             // 
             // tBLanIP1
             // 
-            this.tBLanIP1.Location = new System.Drawing.Point(67, 88);
+            this.tBLanIP1.Location = new System.Drawing.Point(18, 88);
             this.tBLanIP1.Name = "tBLanIP1";
-            this.tBLanIP1.Size = new System.Drawing.Size(36, 23);
+            this.tBLanIP1.Size = new System.Drawing.Size(46, 23);
             this.tBLanIP1.TabIndex = 12;
             this.tBLanIP1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.tBLanIP1.TextChanged += new System.EventHandler(this.tBLanIP1_TextChanged);
@@ -871,24 +925,48 @@
             // 
             this.labILanDot.AutoSize = true;
             this.labILanDot.Font = new System.Drawing.Font("微软雅黑", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labILanDot.Location = new System.Drawing.Point(53, 93);
+            this.labILanDot.Location = new System.Drawing.Point(5, 92);
             this.labILanDot.Name = "labILanDot";
-            this.labILanDot.Size = new System.Drawing.Size(149, 20);
+            this.labILanDot.Size = new System.Drawing.Size(185, 20);
             this.labILanDot.TabIndex = 29;
-            this.labILanDot.Text = "            .          .          .";
+            this.labILanDot.Text = "               .             .             .";
+            // 
+            // labIInfo
+            // 
+            this.labIInfo.AutoSize = true;
+            this.labIInfo.Location = new System.Drawing.Point(144, 152);
+            this.labIInfo.Name = "labIInfo";
+            this.labIInfo.Size = new System.Drawing.Size(63, 68);
+            this.labIInfo.TabIndex = 38;
+            this.labIInfo.Text = "配置名称 :\r\n子网掩码 :\r\n网关 :\r\nDNS :";
+            this.labIInfo.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 200;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // btnIConfReload
+            // 
+            this.btnIConfReload.Location = new System.Drawing.Point(208, 119);
+            this.btnIConfReload.Name = "btnIConfReload";
+            this.btnIConfReload.Size = new System.Drawing.Size(26, 26);
+            this.btnIConfReload.TabIndex = 40;
+            this.btnIConfReload.Text = "√";
+            this.btnIConfReload.UseVisualStyleBackColor = true;
+            this.btnIConfReload.Click += new System.EventHandler(this.btnIConfReload_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(672, 474);
+            this.ClientSize = new System.Drawing.Size(672, 485);
             this.Controls.Add(this.btnRunApp2);
             this.Controls.Add(this.btnRunApp1);
             this.Controls.Add(this.btnRunFileZilla);
             this.Controls.Add(this.btnRunVMware);
             this.Controls.Add(this.btnRunApache);
             this.Controls.Add(this.btnRunNetwork);
-            this.Controls.Add(this.btnMSetManual);
             this.Controls.Add(this.gIP);
             this.Controls.Add(this.btnRunServices);
             this.Controls.Add(this.textConsole);
@@ -899,11 +977,13 @@
             this.Controls.Add(this.labTitle1);
             this.Controls.Add(this.gMySQL);
             this.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.MaximizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "MAVIF 0.2 Alpha By Ty.Chen";
+            this.Text = "MAVIF v1.1 Beta @ Ty.Chen";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.gMySQL.ResumeLayout(false);
             this.gMySQL.PerformLayout();
@@ -931,7 +1011,6 @@
         private System.Windows.Forms.Label labMSNTxt;
         private System.Windows.Forms.Button btnMStop;
         private System.Windows.Forms.Button btnMRun;
-        private System.Windows.Forms.Button btnMSetManual;
         private System.Windows.Forms.GroupBox gApache;
         private System.Windows.Forms.Button btnAStop;
         private System.Windows.Forms.Button btnARun;
@@ -980,17 +1059,24 @@
         private System.Windows.Forms.Button btnISetIP;
         private System.Windows.Forms.Label labIStatus;
         private System.Windows.Forms.Label labIIP;
-        private System.Windows.Forms.Button btnIDHCP;
         private System.Windows.Forms.Label labILanDot;
         private System.Windows.Forms.Button btnRunNetwork;
         private System.Windows.Forms.Button btnRunApache;
         private System.Windows.Forms.Button btnRunVMware;
         private System.Windows.Forms.Button btnRunFileZilla;
         private System.Windows.Forms.Label labIType;
-        private System.Windows.Forms.Label labIInfo;
+        private System.Windows.Forms.Label labIInfoTxt;
         private System.Windows.Forms.Button btnIReFresh;
         private System.Windows.Forms.Button btnRunApp1;
         private System.Windows.Forms.Button btnRunApp2;
+        private System.Windows.Forms.Button btnIConf4;
+        private System.Windows.Forms.Button btnIConf3;
+        private System.Windows.Forms.Button btnIConf2;
+        private System.Windows.Forms.Button btnIConf1;
+        private System.Windows.Forms.Label labIInfo;
+        private System.Windows.Forms.Button btnIConf;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Button btnIConfReload;
     }
 }
 
