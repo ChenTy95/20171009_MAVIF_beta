@@ -85,6 +85,7 @@
             this.btnRunApp2 = new System.Windows.Forms.Button();
             this.cBoxI = new System.Windows.Forms.ComboBox();
             this.gIP = new System.Windows.Forms.GroupBox();
+            this.btnIConfReload = new System.Windows.Forms.Button();
             this.btnIConf = new System.Windows.Forms.Button();
             this.btnIConf4 = new System.Windows.Forms.Button();
             this.btnIConf3 = new System.Windows.Forms.Button();
@@ -104,7 +105,6 @@
             this.labILanDot = new System.Windows.Forms.Label();
             this.labIInfo = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.btnIConfReload = new System.Windows.Forms.Button();
             this.gMySQL.SuspendLayout();
             this.gApache.SuspendLayout();
             this.gFileZilla.SuspendLayout();
@@ -198,7 +198,7 @@
             this.labTitle1.Name = "labTitle1";
             this.labTitle1.Size = new System.Drawing.Size(286, 27);
             this.labTitle1.TabIndex = 1;
-            this.labTitle1.Text = "MAVIF Controller v1.1 Beta";
+            this.labTitle1.Text = "MAVIF Controller v1.2 Beta";
             // 
             // labTitle2
             // 
@@ -751,6 +751,16 @@
             this.gIP.TabStop = false;
             this.gIP.Text = " IP Settings ";
             // 
+            // btnIConfReload
+            // 
+            this.btnIConfReload.Location = new System.Drawing.Point(208, 119);
+            this.btnIConfReload.Name = "btnIConfReload";
+            this.btnIConfReload.Size = new System.Drawing.Size(26, 26);
+            this.btnIConfReload.TabIndex = 40;
+            this.btnIConfReload.Text = "√";
+            this.btnIConfReload.UseVisualStyleBackColor = true;
+            this.btnIConfReload.Click += new System.EventHandler(this.btnIConfReload_Click);
+            // 
             // btnIConf
             // 
             this.btnIConf.Enabled = false;
@@ -946,16 +956,6 @@
             this.timer1.Interval = 200;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // btnIConfReload
-            // 
-            this.btnIConfReload.Location = new System.Drawing.Point(208, 119);
-            this.btnIConfReload.Name = "btnIConfReload";
-            this.btnIConfReload.Size = new System.Drawing.Size(26, 26);
-            this.btnIConfReload.TabIndex = 40;
-            this.btnIConfReload.Text = "√";
-            this.btnIConfReload.UseVisualStyleBackColor = true;
-            this.btnIConfReload.Click += new System.EventHandler(this.btnIConfReload_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -983,7 +983,7 @@
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "MAVIF v1.1 Beta @ Ty.Chen";
+            this.Text = "MAVIF v1.2 Beta @ Ty.Chen";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.gMySQL.ResumeLayout(false);
             this.gMySQL.PerformLayout();

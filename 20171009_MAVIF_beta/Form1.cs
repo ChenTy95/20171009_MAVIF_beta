@@ -378,10 +378,10 @@ namespace _20171009_MAVIF_beta
                 labIInfoTxt.Text = "---\r\n---\r\n---\r\n---";
                 SetConfBtnColor(0);
             }
-            if (labIStatus.Text == "已连接" && labIInfoTxt.Text != "---\r\n---\r\n---\r\n---") 
-            {
-                SetIPED("E");
-            }
+            //if (labIStatus.Text == "已连接" && labIInfoTxt.Text != "---\r\n---\r\n---\r\n---") 
+            //{
+            //    SetIPED("E");
+            //}
             if (cBoxI.Text == "")
                 timer1.Enabled = true;
         }
@@ -867,6 +867,8 @@ namespace _20171009_MAVIF_beta
                 sr.Close();
                 if (strArr[39] == "[END]")
                 {
+                    confArr = null;
+                    confArr = new string[7, 7];
                     try
                     {
                         int j;
@@ -903,6 +905,7 @@ namespace _20171009_MAVIF_beta
 
             btnIConf.Enabled = true;
             LoadCustomApp();
+            LoadDefaultIP();
             LoadCustomIP(0);
             PrintConsole("config.ini load OK!");
             LoadCustomIP(1);
@@ -992,7 +995,7 @@ namespace _20171009_MAVIF_beta
                 Icon myIcon = Icon.FromHandle(shinfo.hIcon);
                 btnRunApp1.Image = myIcon.ToBitmap();
             }
-            if (confArr[6, 1] == "ON" && confArr[6, 2] != "" && confArr[6, 3] != "" && File.Exists(AppPath2 = confArr[6, 3].ToString().Substring(1, confArr[6, 3].ToString().Length - 2))) 
+            if (confArr[6, 1] == "ON" && confArr[6, 2] != "" && confArr[6, 3] != "" && File.Exists(AppPath2 = confArr[6, 3].ToString().Substring(1, confArr[6, 3].ToString().Length - 2)))
             {
                 btnRunApp2.Visible = true;
                 toolTip1.SetToolTip(btnRunApp2, "打开" + confArr[6, 2]);
@@ -1001,6 +1004,22 @@ namespace _20171009_MAVIF_beta
                 Icon myIcon = Icon.FromHandle(shinfo.hIcon);
                 btnRunApp2.Image = myIcon.ToBitmap();
             }
+            if (confArr[5, 1] != "ON")
+                btnRunApp1.Visible = false;
+            if (confArr[6, 1] != "ON")
+                btnRunApp2.Visible = false;
+        }
+        private void LoadDefaultIP()
+        {
+            btnIConf1.Text = "IP Config 1";
+            btnIConf2.Text = "IP Config 2";
+            btnIConf3.Text = "IP Config 3";
+            btnIConf4.Text = "IP Config 4";
+            btnIConf1.Enabled = false;
+            btnIConf2.Enabled = false;
+            btnIConf3.Enabled = false;
+            btnIConf4.Enabled = false;
+            labIInfoTxt.Text = "---\r\n---\r\n---\r\n---";
         }
 
         private void LoadCustomIP(int confNo)
@@ -1122,6 +1141,11 @@ namespace _20171009_MAVIF_beta
                     }
                 }
 
+            }
+            if (btnIConf1.Enabled == false && btnIConf2.Enabled == false && btnIConf3.Enabled == false && btnIConf4.Enabled == false)
+            {
+                SetIPInputED("D");
+                btnISetIP.Enabled = false;
             }
         }
 
