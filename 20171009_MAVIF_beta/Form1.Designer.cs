@@ -392,7 +392,7 @@
             this.gVMware.Location = new System.Drawing.Point(330, 312);
             this.gVMware.Name = "gVMware";
             this.gVMware.Size = new System.Drawing.Size(321, 161);
-            this.gVMware.TabIndex = 5;
+            this.gVMware.TabIndex = 7;
             this.gVMware.TabStop = false;
             this.gVMware.Text = " VMware Workstation ";
             // 
@@ -630,7 +630,7 @@
             this.textConsole.Name = "textConsole";
             this.textConsole.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textConsole.Size = new System.Drawing.Size(292, 136);
-            this.textConsole.TabIndex = 7;
+            this.textConsole.TabIndex = 14;
             this.textConsole.TextChanged += new System.EventHandler(this.textConsole_TextChanged);
             // 
             // btnRunFileZilla
@@ -758,6 +758,7 @@
             this.btnIConfReload.Size = new System.Drawing.Size(26, 26);
             this.btnIConfReload.TabIndex = 40;
             this.btnIConfReload.Text = "√";
+            this.toolTip1.SetToolTip(this.btnIConfReload, "加载并应用（修改后的）配置文件");
             this.btnIConfReload.UseVisualStyleBackColor = true;
             this.btnIConfReload.Click += new System.EventHandler(this.btnIConfReload_Click);
             // 
@@ -770,6 +771,7 @@
             this.btnIConf.Size = new System.Drawing.Size(60, 26);
             this.btnIConf.TabIndex = 39;
             this.btnIConf.Text = "配置";
+            this.toolTip1.SetToolTip(this.btnIConf, "点击打开配置文件");
             this.btnIConf.UseVisualStyleBackColor = true;
             this.btnIConf.Click += new System.EventHandler(this.btnIConf_Click);
             // 
@@ -828,6 +830,7 @@
             this.btnIReFresh.Size = new System.Drawing.Size(62, 26);
             this.btnIReFresh.TabIndex = 33;
             this.btnIReFresh.Text = "刷新\r\n";
+            this.toolTip1.SetToolTip(this.btnIReFresh, "刷新网络连接情况");
             this.btnIReFresh.UseVisualStyleBackColor = true;
             this.btnIReFresh.Click += new System.EventHandler(this.btnIReFresh_Click);
             // 

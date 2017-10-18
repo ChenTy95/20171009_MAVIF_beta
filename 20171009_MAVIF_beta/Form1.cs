@@ -12,7 +12,6 @@ using System.Text.RegularExpressions;
 using System.Runtime.InteropServices;
 using System.IO;
 using System.Net;
-using System.Threading;
 
 namespace _20171009_MAVIF_beta
 {
